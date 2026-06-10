@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>Top Polska Influencerka - Jackbox Edition</title>
+    <title>Top Polska Influencerka</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -74,6 +74,7 @@
             cursor: not-allowed;
         }
 
+        /* Lista kategorii z checkboxami */
         #category-select-container {
             margin-bottom: 20px;
         }
@@ -91,6 +92,7 @@
             vertical-align: middle;
         }
 
+        /* Lista osób do zarządzania */
         #people-list .person-item {
             display: flex;
             align-items: center;
@@ -135,10 +137,12 @@
             background-color: #ff4444;
         }
 
+        /* Klasa do ukrywania sekcji */
         .hidden-section {
             display: none !important;
         }
 
+        /* Turniej i wybór osób */
         #choice-container {
             display: none;
             flex-direction: row;
@@ -237,6 +241,7 @@
             object-fit: cover;
         }
 
+        /* Export/Import Buttons */
         #export-import {
             margin-top: 30px;
         }
@@ -245,85 +250,7 @@
             margin-right: 15px;
         }
 
-        /* Tryb Jackbox Host Area */
-        #jackbox-host-panel {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 400px;
-            border: 2px dashed #ffcc00;
-            display: none;
-        }
-        #jackbox-qr img {
-            background: white;
-            padding: 8px;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-
-        /* NOWY EKRAN KONTROLERA DLA TELEFONU */
-        #voter-mobile-screen {
-            display: none;
-            padding: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .mobile-vote-btn {
-            display: block;
-            width: 100%;
-            padding: 25px;
-            margin: 20px 0;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #121212;
-            background: #ffcc00;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255,204,0,0.3);
-        }
-        .mobile-vote-btn:disabled {
-            background: #444;
-            color: #888;
-            box-shadow: none;
-        }
-        #mobile-status {
-            font-size: 1.2rem;
-            color: #aaa;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 1024px) {
-            .person-choice { max-width: 320px; min-height: 400px; }
-            .person-choice img { height: 300px; }
-            .person-choice h3 { font-size: 1.8rem; }
-            .person-choice p { font-size: 1.1rem; }
-            #vs-text { font-size: 2.8rem; margin: 0 15px; }
-        }
-
-        @media (max-width: 768px) {
-            #choice-container { gap: 20px; }
-            .person-choice { width: 45%; max-width: 250px; padding: 15px; min-height: 350px; }
-            .person-choice img { height: 250px; }
-            .person-choice h3 { font-size: 1.5rem; }
-            .person-choice p { font-size: 0.9rem; }
-            #vs-text { font-size: 2.2rem; }
-        }
-
-        @media (max-width: 480px) {
-             #choice-container { gap: 10px; }
-            .person-choice { width: 48%; max-width: 200px; padding: 10px; min-height: 300px; }
-            .person-choice img { height: 200px; }
-            .person-choice h3 { font-size: 1.2rem; }
-            .person-choice p { font-size: 0.8rem; }
-            #vs-text { font-size: 1.8rem; margin: 0 5px; }
-            header h1 { font-size: 1.8rem; }
-            #round-indicator { font-size: 1.3rem; }
-            #winner-display h2 { font-size: 1.8rem; }
-            #winner-display img { width: 200px; height: 200px; }
-        }
-
+        /* === TRYB GŁOSOWANIA === */
         #voting-mode-settings {
             margin: 12px 0;
             display: flex;
@@ -336,14 +263,80 @@
             font-size: 1rem;
             color: #ccc;
         }
+        #voter-names-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        #voter-names-container input {
+            width: 130px;
+        }
 
+        /* Ekran "Twoja kolej" */
+        #voter-handoff-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+        #voter-handoff-screen.active {
+            display: flex;
+        }
+        #voter-handoff-name {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffcc00;
+            letter-spacing: 2px;
+        }
+        #voter-handoff-subtitle {
+            font-size: 1.3rem;
+            color: #aaa;
+        }
+        #voter-handoff-btn {
+            margin-top: 20px;
+            padding: 16px 48px;
+            font-size: 1.5rem;
+            background: #ffcc00;
+            color: #121212;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        #voter-handoff-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Wskaźnik głosów w turnieju */
         #vote-progress {
             margin: 10px 0;
             font-size: 1.1rem;
             color: #aaa;
             min-height: 28px;
         }
+        .vote-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #444;
+            margin: 0 4px;
+            transition: background 0.3s;
+            vertical-align: middle;
+        }
+        .vote-dot.voted {
+            background: #ffcc00;
+        }
 
+        /* Podświetlenie wygranej karty */
         .person-choice.winner-flash {
             box-shadow: 0 0 40px #ffcc00, 0 0 80px #ffcc0066;
             transform: scale(1.05);
@@ -354,6 +347,7 @@
             transition: opacity 0.3s;
         }
 
+        /* Wyniki głosowania */
         #vote-result-bar {
             display: flex;
             justify-content: center;
@@ -366,343 +360,362 @@
         .vote-count {
             color: #ffcc00;
         }
+
+        /* ======================================================== */
+        /* RESPONSYWNOŚĆ I WIDOK PEŁNOEKRANOWY W PIONIE (DLA SMARTFONÓW) */
+        /* ======================================================== */
+        @media (max-width: 1024px) {
+            .person-choice { max-width: 320px; min-height: 400px; }
+            .person-choice img { height: 300px; }
+            .person-choice h3 { font-size: 1.8rem; }
+            .person-choice p { font-size: 1.1rem; }
+            #vs-text { font-size: 2.8rem; margin: 0 15px; }
+        }
+
+        @media (min-width: 601px) and (max-width: 768px) {
+            #choice-container { gap: 20px; }
+            .person-choice { width: 45%; max-width: 250px; padding: 15px; min-height: 350px; }
+            .person-choice img { height: 250px; }
+            .person-choice h3 { font-size: 1.5rem; }
+            .person-choice p { font-size: 0.9rem; }
+            #vs-text { font-size: 2.2rem; }
+        }
+
+        /* GŁÓWNA AKTUALIZACJA: Smartfony w orientacji pionowej */
+        @media (max-width: 600px) {
+            /* Gdy turniej trwa, ukrywamy zbędne elementy, dając maksymalną przestrzeń na pojedynek */
+            body.tournament-running header,
+            body.tournament-running #people-management,
+            body.tournament-running #import-export,
+            body.tournament-running #tournament-section h2,
+            body.tournament-running #category-select-container,
+            body.tournament-running #voting-mode-settings,
+            body.tournament-running #voter-names-container,
+            body.tournament-running #start-btn,
+            body.tournament-running #limit-container {
+                display: none !important;
+            }
+
+            #tournament-section {
+                padding: 0 10px;
+                margin: 0;
+            }
+
+            /* Przełączenie kontenera na pionowy (karta pod kartą) */
+            #choice-container {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center;
+                gap: 5px;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            /* Każda karta zajmuje około 40% wysokości całego ekranu */
+            .person-choice {
+                width: 100% !important;
+                max-width: 380px;
+                min-height: auto !important;
+                height: calc(41vh - 20px);
+                padding: 8px;
+                box-sizing: border-box;
+                justify-content: flex-start;
+            }
+
+            /* Zdjęcie dostosowane automatycznie, by wypełniało górną część karty */
+            .person-choice img {
+                width: 100%;
+                height: 72% !important;
+                object-fit: cover;
+                margin-bottom: 4px;
+            }
+
+            /* Dopasowanie rozmiarów czcionek, by nic nie wychodziło poza ekran */
+            .person-choice h3 {
+                font-size: 1.4rem !important;
+                margin: 2px 0 0 0;
+            }
+
+            .person-choice p {
+                font-size: 0.95rem !important;
+                margin: 0;
+            }
+
+            #vs-text {
+                font-size: 1.5rem !important;
+                margin: 0 !important;
+                color: #888;
+                font-weight: bold;
+            }
+
+            #round-indicator {
+                font-size: 1.1rem !important;
+                margin-top: 8px;
+            }
+
+            header h1 { font-size: 1.8rem; }
+            #winner-display h2 { font-size: 1.8rem; }
+            #winner-display img { width: 260px; height: 260px; }
+
+            #reset-btn, #restart-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+                margin: 8px 4px 0 4px !important;
+            }
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
 </head>
 <body>
+<header>
+    <h1>Top Polska Influencerka</h1>
+</header>
 
-<div id="voter-mobile-screen">
-    <header style="margin-bottom: 30px;">
-        <h1>Twój Pilot</h1>
-    </header>
-    <h2 id="mobile-pair-title">Oczekiwanie na rozpoczęcie pojedynku...</h2>
-    <div style="margin: 10px 0 25px 0;">
-        <input type="text" id="mobile-voter-name" placeholder="Twoje Imię/Nick" style="width:80%; padding:10px; font-size:1.1rem;" />
+<section id="people-management">
+    <h2>Zarządzaj osobami</h2>
+    <form id="add-person-form">
+        <input id="new-name" placeholder="Imię i nazwisko" required type="text"/>
+        <input id="new-image" placeholder="URL zdjęcia" required type="text"/>
+        <input id="new-person-description" placeholder="Kategoria / Opis" required type="text"/>
+        <button type="submit">Dodaj osobę</button>
+    </form>
+    <div class="people-list" id="people-list"></div>
+</section>
+
+<section id="import-export">
+    <button id="export-excel-btn">Eksportuj do Excela</button>
+    <button id="export-btn">Eksportuj dane (JSON)</button>
+    <button id="import-btn">Importuj dane (JSON)</button>
+    <input accept=".json" id="file-input" style="display:none;" type="file"/>
+    <button id="import-excel-btn">Importuj z Excela</button>
+    <input accept=".xlsx" id="import-excel-input" style="display:none;" type="file"/>
+</section>
+
+<section id="tournament-section">
+    <h2>Turniej</h2>
+    <div id="category-select-container"></div>
+
+    <div id="voting-mode-settings">
+        <label>
+            <input type="checkbox" id="voting-mode-toggle" style="transform:scale(1.2);margin-right:6px;vertical-align:middle;">
+            Tryb głosowania (każdy głosuje osobno)
+        </label>
     </div>
-    <button id="mobile-btn-left" class="mobile-vote-btn" disabled>Wybierz Lewą</button>
-    <button id="mobile-btn-right" class="mobile-vote-btn" disabled>Wybierz Prawą</button>
-    <div id="mobile-status">Połączono z pokojem.</div>
-</div>
+    <div id="voter-names-container" style="display:none;">
+        <input type="text" id="voter1" placeholder="Imię osoby 1" value="Osoba 1" />
+        <input type="text" id="voter2" placeholder="Imię osoby 2" value="Osoba 2" />
+        <input type="text" id="voter3" placeholder="Imię osoby 3" value="Osoba 3" />
+    </div>
 
-<div id="main-host-screen">
-    <header>
-        <h1>Top Polska Influencerka</h1>
-    </header>
+    <button id="start-btn" style="margin-top:12px;">Startuj turniej</button>
+    <div id="limit-container" style="display: inline-block; margin-left: 1em;">
+        Limit uczestników:
+        <select id="participant-limit">
+            <option value="">Bez limitu</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="64">64</option>
+            <option value="128">128</option>
+            <option value="256">256</option>
+        </select>
+    </div>
+    <button id="reset-btn" style="margin-left:1em;">Resetuj turniej</button>
+    <button id="restart-btn" style="margin-left:1em;">Zacznij od nowa</button>
 
-    <section id="people-management">
-        <h2>Zarządzaj osobami</h2>
-        <form id="add-person-form">
-            <input id="new-name" placeholder="Imię i nazwisko" required type="text"/>
-            <input id="new-image" placeholder="URL zdjęcia" required type="text"/>
-            <input id="new-person-description" placeholder="Kategoria / Opis" required type="text"/>
-            <button type="submit">Dodaj osobę</button>
-        </form>
-        <div class="people-list" id="people-list"></div>
-    </section>
-
-    <section id="import-export">
-        <button id="export-excel-btn">Eksportuj do Excela</button>
-        <button id="export-btn">Eksportuj dane (JSON)</button>
-        <button id="import-btn">Importuj dane (JSON)</button>
-        <input accept=".json" id="file-input" style="display:none;" type="file"/>
-        <button id="import-excel-btn">Importuj z Excela</button>
-        <input accept=".xlsx" id="import-excel-input" style="display:none;" type="file"/>
-    </section>
-
-    <section id="tournament-section">
-        <h2>Turniej</h2>
-        <div id="category-select-container"></div>
-
-        <div id="voting-mode-settings">
-            <label>
-                <input type="checkbox" id="voting-mode-toggle" style="transform:scale(1.2);margin-right:6px;vertical-align:middle;">
-                <strong>Tryb Jackbox (głosowanie telefonami za pomocą kodu QR)</strong>
-            </label>
+    <div id="round-indicator"></div>
+    <div id="vote-progress"></div>
+    <div id="vote-result-bar"></div>
+    <div id="bye-message"></div>
+    <div id="choice-container">
+        <div class="person-choice" id="choice1">
+            <img alt="" src=""/>
+            <h3></h3>
+            <p></p>
         </div>
-
-        <div id="jackbox-host-panel">
-            <h3>Pokój: <span id="room-code-display" style="color:#ffcc00; font-size:1.6rem;">----</span></h3>
-            <p>Dołącz skanując telefonem poniższy kod QR:</p>
-            <div id="jackbox-qr"></div>
-            <p style="font-size:0.9rem; color:#aaa; margin-top:5px;">Liczba połączonych pilotów: <span id="connected-count" style="color:#fff; font-weight:bold;">0</span></p>
+        <div class="vs" id="vs-text">VS</div>
+        <div class="person-choice" id="choice2">
+            <img alt="" src=""/>
+            <h3></h3>
+            <p></p>
         </div>
+    </div>
+    <div id="winner-display"></div>
+</section>
 
-        <button id="start-btn" style="margin-top:12px;">Startuj turniej</button>
-        <div id="limit-container" style="display: inline-block; margin-left: 1em;">
-            Limit uczestników:
-            <select id="participant-limit">
-                <option value="">Bez limitu</option>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="32">32</option>
-                <option value="64">64</option>
-            </select>
-        </div>
-        <button id="reset-btn" style="margin-left:1em;">Resetuj turniej</button>
-        <button id="restart-btn" style="margin-left:1em;">Zacznij od nowa</button>
-
-        <div id="round-indicator"></div>
-        <div id="vote-progress"></div>
-        <div id="vote-result-bar"></div>
-        <div id="bye-message"></div>
-        <div id="choice-container">
-            <div class="person-choice" id="choice1">
-                <img alt="" src=""/>
-                <h3></h3>
-                <p></p>
-            </div>
-            <div class="vs" id="vs-text">VS</div>
-            <div class="person-choice" id="choice2">
-                <img alt="" src=""/>
-                <h3></h3>
-                <p></p>
-            </div>
-        </div>
-        <div id="winner-display"></div>
-    </section>
+<div id="voter-handoff-screen">
+    <div id="voter-handoff-name"></div>
+    <div id="voter-handoff-subtitle">Twoja kolej na głosowanie!</div>
+    <button id="voter-handoff-btn">Jestem gotowy/a →</button>
 </div>
 
 <script>
-    // --- Sprawdzanie roli (Telefon vs Komputer) ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const isVoter = urlParams.get('role') === 'voter';
-    const roomCode = urlParams.get('room');
-
-    let mqttClient = null;
-    const baseTopic = "top_influ_tournament_room_";
-
-    // --- Dane gry ---
+    // --- Dane i stany ---
     let people = [];
     let categories = [];
     let selectedCategories = new Set();
+
+    // === TRYB GŁOSOWANIA ===
     let votingModeEnabled = false;
+    let voterNames = ['Osoba 1', 'Osoba 2', 'Osoba 3'];
+    let currentVoterIndex = 0;
+    let votes = []; // votes[voterIndex] = 0 lub 1 (indeks karty)
 
-    // Zmienne zliczania głosów sieciowych
-    let activeRoomId = "";
-    let dynamicVotes = {}; // nick -> 0 lub 1
-    let votersList = new Set();
+    const votingToggle = document.getElementById('voting-mode-toggle');
+    const voterNamesContainer = document.getElementById('voter-names-container');
+    const handoffScreen = document.getElementById('voter-handoff-screen');
+    const handoffName = document.getElementById('voter-handoff-name');
+    const handoffBtn = document.getElementById('voter-handoff-btn');
+    const voteProgress = document.getElementById('vote-progress');
+    const voteResultBar = document.getElementById('vote-result-bar');
 
-    if (isVoter) {
-        // JEŚLI TO TELEFON: Ukryj wszystko, pokaż tylko kontroler
-        document.getElementById('main-host-screen').style.display = 'none';
-        document.getElementById('voter-mobile-screen').style.display = 'block';
-        setupMobileVoter();
-    } else {
-        // JEŚLI TO KOMPUTER: Normalna inicjalizacja
-        initHostSystem();
-    }
+    votingToggle.onchange = () => {
+        votingModeEnabled = votingToggle.checked;
+        voterNamesContainer.style.display = votingModeEnabled ? 'flex' : 'none';
+    };
 
-    // ==========================================
-    // LOGIKA DLA TELEFONU (PILOT DO GŁOSOWANIA)
-    // ==========================================
-    function setupMobileVoter() {
-        const statusDiv = document.getElementById('mobile-status');
-        const titleDiv = document.getElementById('mobile-pair-title');
-        const btnLeft = document.getElementById('mobile-btn-left');
-        const btnRight = document.getElementById('mobile-btn-right');
-        const nameInput = document.getElementById('mobile-voter-name');
+    handoffBtn.onclick = () => {
+        handoffScreen.classList.remove('active');
+    };
 
-        // Losowy unikalny domyślny nick
-        if(!nameInput.value) {
-            nameInput.value = "Gracz_" + Math.floor(Math.random() * 900 + 100);
-        }
+    // Referencje do sekcji do ukrywania/pokazywania
+    const peopleManagementSection = document.getElementById('people-management');
+    const importExportSection = document.getElementById('import-export');
+    const tournamentSection = document.getElementById('tournament-section');
 
-        // Łączenie z darmowym publicznym serwerem MQTT brokera HiveMQ przez bezpieczne WebSockets
-        mqttClient = mqtt.connect('wss://broker.hivemq.com:8004/mqtt');
+    // Referencje do elementów DOM
+    const addPersonForm = document.getElementById('add-person-form');
+    const peopleListDiv = document.getElementById('people-list');
+    const categorySelectContainer = document.getElementById('category-select-container');
+    const startBtn = document.getElementById('start-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const roundIndicator = document.getElementById('round-indicator');
+    const byeMessageDiv = document.getElementById('bye-message');
+    const choiceContainer = document.getElementById('choice-container');
+    const choice1 = document.getElementById('choice1');
+    const choice2 = document.getElementById('choice2');
+    const winnerDisplay = document.getElementById('winner-display');
+    const exportBtn = document.getElementById('export-btn');
+    const importBtn = document.getElementById('import-btn');
+    const fileInput = document.getElementById('file-input');
 
-        mqttClient.on('connect', () => {
-            statusDiv.textContent = `Połączono z pokojem ${roomCode}!`;
-            mqttClient.subscribe(`${baseTopic}${roomCode}/host_to_voters`);
-            // Zgłoś obecność pilota
-            sendPing();
-            setInterval(sendPing, 4000);
-        });
+    // --- Logika kategorii ---
 
-        function sendPing() {
-            mqttClient.publish(`${baseTopic}${roomCode}/voters_to_host`, JSON.stringify({type: 'ping', voter: nameInput.value}));
-        }
-
-        mqttClient.on('message', (topic, message) => {
-            const data = JSON.parse(message.toString());
-            if (data.type === 'new_pair') {
-                titleDiv.textContent = `${data.p1} VS ${data.p2}`;
-                btnLeft.textContent = data.p1;
-                btnRight.textContent = data.p2;
-                btnLeft.disabled = false;
-                btnRight.disabled = false;
-                statusDiv.textContent = "Wybierz faworytkę!";
-                btnLeft.style.background = "#ffcc00";
-                btnRight.style.background = "#ffcc00";
-            } else if (data.type === 'round_ended') {
-                btnLeft.disabled = true;
-                btnRight.disabled = true;
-                titleDiv.textContent = "Pojedynek zakończony!";
-                statusDiv.textContent = "Oczekiwanie na następną parę...";
-            }
-        });
-
-        btnLeft.onclick = () => sendVote(0, btnLeft, btnRight);
-        btnRight.onclick = () => sendVote(1, btnRight, btnLeft);
-
-        function sendVote(index, clickedBtn, otherBtn) {
-            const votePayload = {
-                type: 'vote',
-                voter: nameInput.value.trim() || "Anonim",
-                choice: index
+    function updateCategorySelectCheckboxes() {
+        categorySelectContainer.innerHTML = '';
+        categories.sort().forEach(cat => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = cat;
+            checkbox.checked = selectedCategories.has(cat);
+            checkbox.className = 'category-checkbox';
+            checkbox.onchange = () => {
+                if (checkbox.checked) {
+                    selectedCategories.add(cat);
+                } else {
+                    selectedCategories.delete(cat);
+                }
+                updateStartButton();
             };
-            mqttClient.publish(`${baseTopic}${roomCode}/voters_to_host`, JSON.stringify(votePayload));
-            clickedBtn.disabled = true;
-            otherBtn.disabled = true;
-            clickedBtn.style.background = "#22bb22";
-            statusDiv.textContent = "Głos wysłany! Czekaj na resztę grupy.";
-        }
-    }
-
-    // ==========================================
-    // LOGIKA DLA KOMPUTERA (HOST / EKRAN GŁÓWNY)
-    // ==========================================
-    function initHostSystem() {
-        const votingToggle = document.getElementById('voting-mode-toggle');
-        const jackboxPanel = document.getElementById('jackbox-host-panel');
-
-        votingToggle.onchange = () => {
-            votingModeEnabled = votingToggle.checked;
-            jackboxPanel.style.display = votingModeEnabled ? 'block' : 'none';
-            if (votingModeEnabled && !activeRoomId) {
-                generateJackboxRoom();
-            }
-        };
-
-        // Reszta standardowych powiązań DOM z oryginalnego kodu v7
-        document.getElementById('add-person-form').onsubmit = handleFormSubmit;
-        document.getElementById('start-btn').onclick = startTournament;
-        document.getElementById('restart-btn').onclick = startTournament;
-        document.getElementById('reset-btn').onclick = resetTournament;
-        document.getElementById("participant-limit").addEventListener("change", updateStartButton);
-        setupExcelAndJsonButtons();
-        updateAll();
-    }
-
-    function generateJackboxRoom() {
-        // Generuj 4-literowy kod pokoju
-        const chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ";
-        activeRoomId = "";
-        for (let i = 0; i < 4; i++) {
-            activeRoomId += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        document.getElementById('room-code-display').textContent = activeRoomId;
-
-        // Dynamiczne wygenerowanie linku bezpośredniego i wstawienie obrazka kodu QR
-        const currentUrl = window.location.href.split('?')[0];
-        const joinUrl = `${currentUrl}?role=voter&room=${activeRoomId}`;
-        const qrContainer = document.getElementById('jackbox-qr');
-        qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(joinUrl)}" alt="QR Code" />`;
-
-        // Łączenie z MQTT ze strony hosta
-        mqttClient = mqtt.connect('wss://broker.hivemq.com:8004/mqtt');
-        mqttClient.on('connect', () => {
-            mqttClient.subscribe(`${baseTopic}${activeRoomId}/voters_to_host`);
-        });
-
-        mqttClient.on('message', (topic, message) => {
-            const data = JSON.parse(message.toString());
-            if (data.type === 'ping') {
-                votersList.add(data.voter);
-                document.getElementById('connected-count').textContent = votersList.size;
-                updateVoteDotsDisplay();
-            } else if (data.type === 'vote') {
-                votersList.add(data.voter);
-                dynamicVotes[data.voter] = data.choice;
-                updateVoteDotsDisplay();
-                checkVotesCompletion();
-            }
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(' ' + cat));
+            categorySelectContainer.appendChild(label);
         });
     }
 
-    function updateVoteDotsDisplay() {
-        if (!votingModeEnabled) return;
-        const progressDiv = document.getElementById('vote-progress');
-        let html = "";
-        votersList.forEach(voter => {
-            const voted = dynamicVotes.hasOwnProperty(voter);
-            html += `<span class="vote-dot ${voted ? 'voted' : ''}" title="${voter}"></span>`;
-        });
-        const total = votersList.size;
-        const votedCount = Object.keys(dynamicVotes).length;
-        html += ` <strong>(${votedCount}/${total} głosów)</strong>`;
-        progressDiv.innerHTML = html;
-    }
+    // --- Logika zarządzania osobami ---
 
-    function checkVotesCompletion() {
-        const total = votersList.size;
-        const votedCount = Object.keys(dynamicVotes).length;
-        // Gdy wszyscy połączeni piloci oddadzą głos (minimum 1) podlicz automatycznie runda przechodzi dalej
-        if (total > 0 && votedCount >= total) {
-            processJackboxVotesResult();
+    function updatePeopleList() {
+        peopleListDiv.innerHTML = '';
+        if (people.length === 0) {
+            peopleListDiv.textContent = 'Brak dodanych osób.';
+            return;
         }
-    }
+        people.forEach((person, i) => {
+            const div = document.createElement('div');
+            div.className = 'person-item';
 
-    function processJackboxVotesResult() {
-        let count0 = 0; let count1 = 0;
-        Object.values(dynamicVotes).forEach(v => {
-            if (v === 0) count0++;
-            if (v === 1) count1++;
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'person-info';
+            const img = document.createElement('img');
+            img.src = person.image;
+            img.alt = person.name;
+            const textDiv = document.createElement('div');
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'name';
+            nameDiv.textContent = `${i + 1}. ${person.name}`;
+            const catDiv = document.createElement('div');
+            catDiv.className = 'cat';
+            catDiv.textContent = `Kategoria: ${person.description}`;
+            textDiv.appendChild(nameDiv);
+            textDiv.appendChild(catDiv);
+            infoDiv.appendChild(img);
+            infoDiv.appendChild(textDiv);
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'person-actions';
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edytuj';
+            editBtn.style.backgroundColor = '#2266aa';
+            editBtn.onclick = () => editPerson(i);
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'Usuń';
+            removeBtn.onclick = () => {
+                if (confirm(`Na pewno usunąć osobę "${person.name}"?`)) {
+                    people.splice(i, 1);
+                    updateAll();
+                }
+            };
+            actionsDiv.appendChild(editBtn);
+            actionsDiv.appendChild(removeBtn);
+
+            div.appendChild(infoDiv);
+            div.appendChild(actionsDiv);
+            peopleListDiv.appendChild(div);
         });
-
-        const winnerIndex = count0 >= count1 ? 0 : 1;
-        const participants = roundsData[currentRound];
-        const name0 = participants[currentPairIndex].name;
-        const name1 = participants[currentPairIndex + 1].name;
-
-        const voteResultBar = document.getElementById('vote-result-bar');
-        voteResultBar.innerHTML = `
-            <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
-            <span style="color:#555">vs</span>
-            <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
-        `;
-
-        const choice1 = document.getElementById('choice1');
-        const choice2 = document.getElementById('choice2');
-        const winCard = winnerIndex === 0 ? choice1 : choice2;
-        const loseCard = winnerIndex === 0 ? choice2 : choice1;
-        winCard.classList.add('winner-flash');
-        loseCard.classList.add('loser-fade');
-
-        // Powiadom telefony o zakończeniu głosowania
-        if(mqttClient) {
-            mqttClient.publish(`${baseTopic}${activeRoomId}/host_to_voters`, JSON.stringify({type: 'round_ended'}));
-        }
-
-        setTimeout(() => {
-            winCard.classList.remove('winner-flash');
-            loseCard.classList.remove('loser-fade');
-            voteResultBar.innerHTML = '';
-            document.getElementById('vote-progress').innerHTML = '';
-            dynamicVotes = {};
-            commitWinner(winnerIndex);
-        }, 3000);
     }
-
-    // --- Logika zarządzania i turnieju (Oryginalna z v7 z adaptacją pod sieć) ---
-    let tournamentParticipants = [];
-    let currentRound = 0;
-    let rounds = [];
-    let currentPairIndex = 0;
-    let roundsData = [];
-
-    function handleFormSubmit(e) {
+    
+    addPersonForm.onsubmit = e => {
         e.preventDefault();
         const name = document.getElementById('new-name').value.trim();
         const image = document.getElementById('new-image').value.trim();
         const description = document.getElementById("new-person-description").value.trim();
         if (name && image && description) {
             people.push({ name, image, description });
-            document.getElementById('add-person-form').reset();
+            addPersonForm.reset();
             updateAll();
+        } else {
+            alert("Wszystkie pola (imię, URL zdjęcia, kategoria) są wymagane.");
         }
+    };
+
+    function editPerson(index) {
+        const person = people[index];
+        const newName = prompt("Zmień imię i nazwisko:", person.name);
+        if (newName === null) return;
+        const newImage = prompt("Zmień URL zdjęcia:", person.image);
+        if (newImage === null) return;
+        const newDescription = prompt("Zmień kategorię / opis:", person.description);
+        if (newDescription === null) return;
+
+        people[index] = { name: newName.trim(), image: newImage.trim(), description: newDescription.trim() };
+        updateAll();
     }
+
+    // --- Logika turnieju ---
+    let tournamentParticipants = [];
+    let currentRound = 0;
+    let rounds = [];
+    let currentPairIndex = 0;
+    let roundsData = [];
+
+    startBtn.onclick = startTournament;
+    restartBtn.onclick = startTournament;
+    resetBtn.onclick = resetTournament;
 
     function startTournament() {
         const filteredPeople = selectedCategories.size > 0 
@@ -712,13 +725,17 @@
         const limit = getParticipantLimit();
         let participants = filteredPeople.slice();
 
-        if (limit) { participants = shuffleArray(participants).slice(0, limit); }
+        if (limit) {
+            participants = shuffleArray(participants).slice(0, limit);
+        }
+
         if (participants.length < 2) {
-            alert('Za mało uczestników, aby rozpocząć turniej (minimum 2).');
+            alert('Za mało uczestników, aby rozpocząć turniej (minimum 2 z wybranych kategorii).');
             return;
         }
 
         tournamentParticipants = shuffleArray(participants);
+
         rounds = [];
         let count = tournamentParticipants.length;
         while (count > 1) {
@@ -731,46 +748,88 @@
         currentRound = 0;
         currentPairIndex = 0;
 
-        document.getElementById('winner-display').innerHTML = '';
-        document.getElementById('bye-message').textContent = '';
-        document.getElementById('vote-progress').innerHTML = '';
-        document.getElementById('vote-result-bar').innerHTML = '';
-        
-        document.getElementById('choice-container').style.display = 'flex';
-        document.getElementById('start-btn').disabled = true;
-        document.getElementById('people-management').classList.add('hidden-section');
-        document.getElementById('import-export').classList.add('hidden-section');
+        // UI updates
+        winnerDisplay.innerHTML = '';
+        byeMessageDiv.textContent = '';
+        voteProgress.innerHTML = '';
+        voteResultBar.innerHTML = '';
+        currentVoterIndex = 0;
+        votes = [];
+        choiceContainer.style.display = 'flex';
+        startBtn.disabled = true;
+        peopleManagementSection.classList.add('hidden-section');
+        importExportSection.classList.add('hidden-section');
+        tournamentSection.classList.remove('hidden-section');
+
+        // Aktywacja trybu pełnoekranowego w CSS
+        document.body.classList.add('tournament-running');
 
         processByesForCurrentRound();
         showCurrentPair();
     }
 
+    function resetTournament() {
+        tournamentParticipants = [];
+        currentRound = 0;
+        rounds = [];
+        currentPairIndex = 0;
+        roundsData = [];
+        currentVoterIndex = 0;
+        votes = [];
+        choiceContainer.style.display = 'none';
+        winnerDisplay.innerHTML = '';
+        roundIndicator.textContent = '';
+        byeMessageDiv.textContent = '';
+        voteProgress.innerHTML = '';
+        voteResultBar.innerHTML = '';
+        handoffScreen.classList.remove('active');
+        startBtn.disabled = false;
+        
+        peopleManagementSection.classList.remove('hidden-section');
+        importExportSection.classList.remove('hidden-section');
+        
+        // Wyłączenie trybu pełnoekranowego
+        document.body.classList.remove('tournament-running');
+
+        updateStartButton();
+    }
+    
+    function processByesForCurrentRound() {
+        if (!roundsData[currentRound]) return;
+        let participantsInRound = roundsData[currentRound];
+        if (participantsInRound.length % 2 !== 0 && participantsInRound.length > 1) {
+            const byePerson = participantsInRound.pop();
+            if (!roundsData[currentRound + 1]) {
+                roundsData[currentRound + 1] = [];
+            }
+            roundsData[currentRound + 1].push(byePerson);
+            displayByeMessage(`${byePerson.name} przechodzi do następnej rundy (wolny los).`);
+        }
+    }
+
+    function displayByeMessage(message) {
+        byeMessageDiv.textContent = message;
+        byeMessageDiv.style.opacity = 1;
+        setTimeout(() => {
+            byeMessageDiv.style.opacity = 0;
+            setTimeout(() => { byeMessageDiv.textContent = ''; }, 1000);
+        }, 3000);
+    }
+    
     function showCurrentPair() {
         const participants = roundsData[currentRound];
         if (!participants || currentPairIndex >= participants.length) {
-            if (currentRound < rounds.length) { nextRound(); } 
-            else if (participants && participants.length === 1) { declareWinner(participants[0]); }
+            if (currentRound < rounds.length) {
+                nextRound();
+            } else if (participants && participants.length === 1) {
+                declareWinner(participants[0]);
+            }
             return;
         }
-
-        const p1 = participants[currentPairIndex];
-        const p2 = participants[currentPairIndex + 1];
-
-        setChoice(document.getElementById('choice1'), p1);
-        setChoice(document.getElementById('choice2'), p2);
-        
-        document.getElementById('round-indicator').textContent = `Runda: ${currentRound + 1} z ${rounds.length} – Para ${Math.floor(currentPairIndex / 2) + 1} z ${Math.ceil(participants.length / 2)}`;
-
-        // WYŚLIJ INFORMACJĘ DO TELEFONÓW O NOWEJ PARZE
-        if (votingModeEnabled && mqttClient && activeRoomId) {
-            dynamicVotes = {};
-            updateVoteDotsDisplay();
-            mqttClient.publish(`${baseTopic}${activeRoomId}/host_to_voters`, JSON.stringify({
-                type: 'new_pair',
-                p1: p1.name,
-                p2: p2.name
-            }));
-        }
+        setChoice(choice1, participants[currentPairIndex]);
+        setChoice(choice2, participants[currentPairIndex + 1]);
+        roundIndicator.textContent = `Runda: ${currentRound + 1} z ${rounds.length} – Para ${Math.floor(currentPairIndex / 2) + 1} z ${Math.ceil(participants.length / 2)}`;
+        startVotingRound();
     }
 
     function setChoice(elem, person) {
@@ -780,120 +839,155 @@
         elem.querySelector('p').textContent = person.description;
     }
 
-    document.getElementById('choice1').onclick = () => { if(!votingModeEnabled) commitWinner(0); };
-    document.getElementById('choice2').onclick = () => { if(!votingModeEnabled) commitWinner(1); };
+    function selectWinner(index) {
+        if (votingModeEnabled) {
+            handleVote(index);
+        } else {
+            commitWinner(index);
+        }
+    }
+
+    function handleVote(index) {
+        votes[currentVoterIndex] = index;
+        currentVoterIndex++;
+        updateVoteDots();
+
+        if (currentVoterIndex < voterNames.length) {
+            const nextName = voterNames[currentVoterIndex];
+            handoffName.textContent = nextName;
+            handoffScreen.classList.add('active');
+        } else {
+            const count0 = votes.filter(v => v === 0).length;
+            const count1 = votes.filter(v => v === 1).length;
+            const winnerIndex = count0 >= count1 ? 0 : 1;
+
+            const participants = roundsData[currentRound];
+            const name0 = participants[currentPairIndex].name;
+            const name1 = participants[currentPairIndex + 1].name;
+
+            voteResultBar.innerHTML = `
+                <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
+                <span style="color:#555">vs</span>
+                <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
+            `;
+
+            const winCard = winnerIndex === 0 ? choice1 : choice2;
+            const loseCard = winnerIndex === 0 ? choice2 : choice1;
+            winCard.classList.add('winner-flash');
+            loseCard.classList.add('loser-fade');
+
+            currentVoterIndex = 0;
+            votes = [];
+
+            setTimeout(() => {
+                winCard.classList.remove('winner-flash');
+                loseCard.classList.remove('loser-fade');
+                voteResultBar.innerHTML = '';
+                voteProgress.innerHTML = '';
+                commitWinner(winnerIndex);
+            }, 2200);
+        }
+    }
+
+    function updateVoteDots() {
+        if (!votingModeEnabled) { voteProgress.innerHTML = ''; return; }
+        const names = getVoterNames();
+        const dots = names.map((name, i) => {
+            const voted = i < currentVoterIndex;
+            return `<span class="vote-dot ${voted ? 'voted' : ''}" title="${name}"></span>`;
+        }).join('');
+        const remaining = names.length - currentVoterIndex;
+        const label = remaining > 0 ? `Czeka na głos: <strong>${names[currentVoterIndex]}</strong>` : 'Zliczam głosy…';
+        voteProgress.innerHTML = `${dots} ${label}`;
+    }
+
+    function getVoterNames() {
+        return [
+            document.getElementById('voter1').value.trim() || 'Osoba 1',
+            document.getElementById('voter2').value.trim() || 'Osoba 2',
+            document.getElementById('voter3').value.trim() || 'Osoba 3',
+        ];
+    }
 
     function commitWinner(index) {
         const participants = roundsData[currentRound];
         const winner = participants[currentPairIndex + index];
-        if (!roundsData[currentRound + 1]) { roundsData[currentRound + 1] = []; }
+        if (!roundsData[currentRound + 1]) {
+            roundsData[currentRound + 1] = [];
+        }
         roundsData[currentRound + 1].push(winner);
         currentPairIndex += 2;
         showCurrentPair();
     }
 
+    document.getElementById('voter-handoff-btn').onclick = () => {
+        handoffScreen.classList.remove('active');
+        updateVoteDots();
+    };
+
+    function startVotingRound() {
+        currentVoterIndex = 0;
+        votes = [];
+        if (votingModeEnabled) {
+            voterNames = getVoterNames();
+            handoffName.textContent = voterNames[0];
+            handoffScreen.classList.add('active');
+            updateVoteDots();
+        }
+    }
+
     function nextRound() {
         currentRound++;
         currentPairIndex = 0;
+        
         if (!roundsData[currentRound] || roundsData[currentRound].length === 0) {
             declareWinner(roundsData[currentRound-1][0]);
             return;
         }
+        
         if (roundsData[currentRound].length === 1) {
              declareWinner(roundsData[currentRound][0]);
              return;
         }
+
         roundsData[currentRound] = shuffleArray(roundsData[currentRound].slice());
         processByesForCurrentRound();
         showCurrentPair();
     }
 
     function declareWinner(person) {
-        document.getElementById('choice-container').style.display = 'none';
-        document.getElementById('round-indicator').textContent = '🏁 Turniej zakończony! 🏁';
-        document.getElementById('winner-display').innerHTML = `<h2>Zwycięzca:</h2><h3>${person.name}</h3><img src="${person.image}" alt="${person.name}" /><p>Kategoria: ${person.description}</p>`;
-        document.getElementById('start-btn').disabled = false;
-        document.getElementById('people-management').classList.remove('hidden-section');
-        document.getElementById('import-export').classList.remove('hidden-section');
+        choiceContainer.style.display = 'none';
+        roundIndicator.textContent = '🏁 Turniej zakończony! 🏁';
+        byeMessageDiv.textContent = '';
+        winnerDisplay.innerHTML = `<h2>Zwycięzca:</h2><h3>${person.name}</h3><img src="${person.image}" alt="${person.name}" /><p>Kategoria: ${person.description}</p>`;
+        startBtn.disabled = false;
+        
+        peopleManagementSection.classList.remove('hidden-section');
+        importExportSection.classList.remove('hidden-section');
+
+        // Wyłączenie trybu pełnoekranowego po finale
+        document.body.classList.remove('tournament-running');
     }
 
-    function processByesForCurrentRound() {
-        if (!roundsData[currentRound]) return;
-        let participantsInRound = roundsData[currentRound];
-        if (participantsInRound.length % 2 !== 0 && participantsInRound.length > 1) {
-            const byePerson = participantsInRound.pop();
-            if (!roundsData[currentRound + 1]) { roundsData[currentRound + 1] = []; }
-            roundsData[currentRound + 1].push(byePerson);
-        }
-    }
+    choice1.onclick = () => selectWinner(0);
+    choice2.onclick = () => selectWinner(1);
 
-    function resetTournament() {
-        tournamentParticipants = []; currentRound = 0; rounds = []; currentPairIndex = 0; roundsData = []; dynamicVotes = {};
-        document.getElementById('choice-container').style.display = 'none';
-        document.getElementById('winner-display').innerHTML = '';
-        document.getElementById('round-indicator').textContent = '';
-        document.getElementById('vote-progress').innerHTML = '';
-        document.getElementById('vote-result-bar').innerHTML = '';
-        document.getElementById('start-btn').disabled = false;
-        document.getElementById('people-management').classList.remove('hidden-section');
-        document.getElementById('import-export').classList.remove('hidden-section');
-        updateStartButton();
-    }
-
-    // --- Reszta funkcji pomocniczych ---
-    function updateCategorySelectCheckboxes() {
-        const container = document.getElementById('category-select-container');
-        container.innerHTML = '';
-        categories.sort().forEach(cat => {
-            const label = document.createElement('label');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.value = cat;
-            checkbox.checked = selectedCategories.has(cat);
-            checkbox.onchange = () => {
-                if (checkbox.checked) selectedCategories.add(cat); else selectedCategories.delete(cat);
-                updateStartButton();
-            };
-            label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(' ' + cat));
-            container.appendChild(label);
-        });
-    }
-
-    function updatePeopleList() {
-        const list = document.getElementById('people-list');
-        list.innerHTML = '';
-        if (people.length === 0) { list.textContent = 'Brak dodanych osób.'; return; }
-        people.forEach((person, i) => {
-            const div = document.createElement('div');
-            div.className = 'person-item';
-            div.innerHTML = `
-                <div class="person-info">
-                    <img src="${person.image}" alt="${person.name}">
-                    <div>
-                        <div class="name">${i + 1}. ${person.name}</div>
-                        <div class="cat">Kategoria: ${person.description}</div>
-                    </div>
-                </div>
-                <div class="person-actions">
-                    <button onclick="people.splice(${i}, 1); updateAll();" style="background:#aa2222;">Usuń</button>
-                </div>
-            `;
-            list.appendChild(div);
-        });
-    }
+    // --- Funkcje pomocnicze i import/eksport ---
 
     function updateStartButton() {
         const limit = getParticipantLimit();
-        const filteredCount = selectedCategories.size > 0 ? people.filter(p => selectedCategories.has(p.description)).length : people.length;
-        document.getElementById('start-btn').disabled = limit ? filteredCount < limit : filteredCount < 2;
+        const filteredCount = selectedCategories.size > 0 
+            ? people.filter(p => selectedCategories.has(p.description)).length
+            : people.length;
+            
+        startBtn.disabled = limit ? filteredCount < limit : filteredCount < 2;
     }
 
     function getParticipantLimit() {
         const val = document.getElementById("participant-limit").value;
         return val ? parseInt(val, 10) : null;
     }
-
+    
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -910,57 +1004,106 @@
         updatePeopleList();
         updateStartButton();
     }
+    
+    document.getElementById("participant-limit").addEventListener("change", updateStartButton);
+    
+    // Eksport do Excel
+    document.getElementById("export-excel-btn").onclick = function () {
+        if (people.length === 0) {
+            alert("Brak danych do eksportu.");
+            return;
+        }
+        const data = people.map(p => ({
+            "Imię i nazwisko": p.name,
+            "Kategoria": p.description,
+            "Zdjęcie": p.image
+        }));
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Osoby");
+        XLSX.writeFile(workbook, "lista_osob.xlsx");
+    };
 
-    function setupExcelAndJsonButtons() {
-        document.getElementById("export-excel-btn").onclick = function () {
-            if (people.length === 0) return;
-            const data = people.map(p => ({"Imię i nazwisko": p.name, "Kategoria": p.description, "Zdjęcie": p.image}));
-            const ws = XLSX.utils.json_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Osoby");
-            XLSX.writeFile(wb, "lista_osob.xlsx");
-        };
+    // Eksport do JSON
+    exportBtn.onclick = () => {
+        const data = { people: people };
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'turniej-dane.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
 
-        document.getElementById('export-btn').onclick = () => {
-            const blob = new Blob([JSON.stringify({people: people}, null, 2)], {type: 'application/json'});
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'turniej-dane.json';
-            a.click();
-        };
-
-        document.getElementById('import-btn').onclick = () => document.getElementById('file-input').click();
-        document.getElementById('file-input').onchange = e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const r = new FileReader();
-            r.onload = evt => {
+    // Import z JSON
+    importBtn.onclick = () => fileInput.click();
+    fileInput.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+            try {
                 const imported = JSON.parse(evt.target.result);
-                if (Array.isArray(imported.people)) people = people.concat(imported.people);
+                if (Array.isArray(imported.people)) {
+                    const existingNames = new Set(people.map(p => p.name.toLowerCase()));
+                    const newPeople = imported.people.filter(p => !existingNames.has(p.name.toLowerCase()));
+                    people = people.concat(newPeople);
+                }
                 updateAll();
-            };
-            r.readAsText(file);
+                alert('Dane zaimportowane pomyślnie.');
+            } catch (error) {
+                alert('Niepoprawny plik JSON: ' + error.message);
+            }
         };
+        reader.readAsText(file);
+    };
 
-        document.getElementById("import-excel-btn").onclick = () => document.getElementById("import-excel-input").click();
-        document.getElementById("import-excel-input").onchange = e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = evt => {
+    // Import z Excel
+    document.getElementById("import-excel-btn").onclick = () => {
+        document.getElementById("import-excel-input").click();
+    };
+
+    document.getElementById("import-excel-input").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            try {
                 const data = new Uint8Array(evt.target.result);
                 const workbook = XLSX.read(data, {type: 'array'});
-                const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const json = XLSX.utils.sheet_to_json(sheet);
+
+                let importedCount = 0;
+                const existingNames = new Set(people.map(p => p.name.toLowerCase()));
+
                 json.forEach(row => {
-                    if (row["Imię i nazwisko"] && row["Kategoria"]) {
-                        people.push({name: String(row["Imię i nazwisko"]), description: String(row["Kategoria"]), image: row["Zdjęcie"] || "https://via.placeholder.com/300"});
+                    const name = row["Imię i nazwisko"];
+                    const description = row["Kategoria"];
+                    const image = row["Zdjęcie"] || "https://via.placeholder.com/300";
+
+                    if (name && description && !existingNames.has(String(name).trim().toLowerCase())) {
+                        people.push({
+                            name: String(name).trim(),
+                            description: String(description).trim(),
+                            image: String(image).trim()
+                        });
+                        importedCount++;
                     }
                 });
+
                 updateAll();
-            };
-            reader.readAsArrayBuffer(file);
+                alert(`Zaimportowano ${importedCount} nowych osób z Excela.`);
+            } catch (error) {
+                alert(`Błąd podczas importu z Excela: ${error.message}. Upewnij się, że plik ma kolumny "Imię i nazwisko" i "Kategoria".`);
+            }
         };
-    }
+        reader.readAsArrayBuffer(file);
+    });
+    
+    updateAll();
 </script>
 </body>
 </html>
