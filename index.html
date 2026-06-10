@@ -43,7 +43,7 @@
         }
 
         input[type="text"], input[type="url"], select {
-            padding: 8px 12px;
+            padding: 6px 10px;
             font-size: 1rem;
             border-radius: 5px;
             border: 1px solid #444;
@@ -53,7 +53,7 @@
         }
 
         button {
-            padding: 8px 16px;
+            padding: 6px 14px;
             margin-left: 8px;
             background-color: #333;
             color: #ffcc00;
@@ -250,48 +250,19 @@
             margin-right: 15px;
         }
 
-        /* Responsywność */
-        @media (max-width: 1024px) {
-            .person-choice { max-width: 320px; min-height: 400px; }
-            .person-choice img { height: 300px; }
-            .person-choice h3 { font-size: 1.8rem; }
-            .person-choice p { font-size: 1.1rem; }
-            #vs-text { font-size: 2.8rem; margin: 0 15px; }
-        }
-
-        @media (max-width: 768px) {
-            #choice-container { gap: 20px; }
-            .person-choice { width: 45%; max-width: 250px; padding: 15px; min-height: 350px; }
-            .person-choice img { height: 250px; }
-            .person-choice h3 { font-size: 1.5rem; }
-            .person-choice p { font-size: 0.9rem; }
-            #vs-text { font-size: 2.2rem; }
-        }
-
-        @media (max-width: 480px) {
-             #choice-container { gap: 10px; }
-            .person-choice { width: 48%; max-width: 200px; padding: 10px; min-height: 300px; }
-            .person-choice img { height: 200px; }
-            .person-choice h3 { font-size: 1.2rem; }
-            .person-choice p { font-size: 0.8rem; }
-            #vs-text { font-size: 1.8rem; margin: 0 5px; }
-            header h1 { font-size: 1.8rem; }
-            #round-indicator { font-size: 1.3rem; }
-            #winner-display h2 { font-size: 1.8rem; }
-            #winner-display img { width: 200px; height: 200px; }
-        }
-
         /* === TRYB GŁOSOWANIA === */
         #voting-mode-settings {
-            margin: 15px 0;
+            margin: 12px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            font-size: 1.1rem;
         }
-        
+        #voting-mode-settings label {
+            font-size: 1rem;
+            color: #ccc;
+        }
         #voter-names-container {
             display: flex;
             gap: 8px;
@@ -303,24 +274,7 @@
             width: 130px;
         }
 
-        /* Panel Jackbox */
-        #jackbox-panel {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px auto;
-            max-width: 500px;
-            border: 2px dashed #ffcc00;
-        }
-        #jackbox-code {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #ffcc00;
-            letter-spacing: 4px;
-            margin: 10px 0;
-        }
-
-        /* Ekran "Twoja kolej" (Lokalny) */
+        /* Ekran "Twoja kolej" */
         #voter-handoff-screen {
             display: none;
             position: fixed;
@@ -364,17 +318,17 @@
         /* Wskaźnik głosów w turnieju */
         #vote-progress {
             margin: 10px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #aaa;
             min-height: 28px;
         }
         .vote-dot {
             display: inline-block;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #444;
-            margin: 0 5px;
+            margin: 0 4px;
             transition: background 0.3s;
             vertical-align: middle;
         }
@@ -396,722 +350,534 @@
         /* Wyniki głosowania */
         #vote-result-bar {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            gap: 40px;
             margin: 12px 0 0 0;
             font-size: 1.3rem;
             font-weight: 700;
             min-height: 36px;
         }
-        .vote-counts-line {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
         .vote-count {
             color: #ffcc00;
         }
 
-        /* === INTERFEJS KONTROLERA (TELEFONU) === */
-        #phone-controller-ui {
-            padding: 20px;
-            box-sizing: border-box;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #121212;
+        /* ======================================================== */
+        /* RESPONSYWNOŚĆ I WIDOK PEŁNOEKRANOWY W PIONIE (DLA SMARTFONÓW) */
+        /* ======================================================== */
+        @media (max-width: 1024px) {
+            .person-choice { max-width: 320px; min-height: 400px; }
+            .person-choice img { height: 300px; }
+            .person-choice h3 { font-size: 1.8rem; }
+            .person-choice p { font-size: 1.1rem; }
+            #vs-text { font-size: 2.8rem; margin: 0 15px; }
         }
-        .phone-btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 24px;
-            margin: 12px 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
+
+        @media (min-width: 601px) and (max-width: 768px) {
+            #choice-container { gap: 20px; }
+            .person-choice { width: 45%; max-width: 250px; padding: 15px; min-height: 350px; }
+            .person-choice img { height: 250px; }
+            .person-choice h3 { font-size: 1.5rem; }
+            .person-choice p { font-size: 0.9rem; }
+            #vs-text { font-size: 2.2rem; }
         }
-        #phone-btn-0 { background: #3388ff; color: #fff; }
-        #phone-btn-1 { background: #ff4444; color: #fff; }
+
+        /* GŁÓWNA AKTUALIZACJA: Smartfony w orientacji pionowej */
+        @media (max-width: 600px) {
+            /* Gdy turniej trwa, ukrywamy zbędne elementy, dając maksymalną przestrzeń na pojedynek */
+            body.tournament-running header,
+            body.tournament-running #people-management,
+            body.tournament-running #import-export,
+            body.tournament-running #tournament-section h2,
+            body.tournament-running #category-select-container,
+            body.tournament-running #voting-mode-settings,
+            body.tournament-running #voter-names-container,
+            body.tournament-running #start-btn,
+            body.tournament-running #limit-container {
+                display: none !important;
+            }
+
+            #tournament-section {
+                padding: 0 10px;
+                margin: 0;
+            }
+
+            /* Przełączenie kontenera na pionowy (karta pod kartą) */
+            #choice-container {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center;
+                gap: 5px;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            /* Każda karta zajmuje około 40% wysokości całego ekranu */
+            .person-choice {
+                width: 100% !important;
+                max-width: 380px;
+                min-height: auto !important;
+                height: calc(41vh - 20px);
+                padding: 8px;
+                box-sizing: border-box;
+                justify-content: flex-start;
+            }
+
+            /* Zdjęcie dostosowane automatycznie, by wypełniało górną część karty */
+            .person-choice img {
+                width: 100%;
+                height: 72% !important;
+                object-fit: cover;
+                margin-bottom: 4px;
+            }
+
+            /* Dopasowanie rozmiarów czcionek, by nic nie wychodziło poza ekran */
+            .person-choice h3 {
+                font-size: 1.4rem !important;
+                margin: 2px 0 0 0;
+            }
+
+            .person-choice p {
+                font-size: 0.95rem !important;
+                margin: 0;
+            }
+
+            #vs-text {
+                font-size: 1.5rem !important;
+                margin: 0 !important;
+                color: #888;
+                font-weight: bold;
+            }
+
+            #round-indicator {
+                font-size: 1.1rem !important;
+                margin-top: 8px;
+            }
+
+            header h1 { font-size: 1.8rem; }
+            #winner-display h2 { font-size: 1.8rem; }
+            #winner-display img { width: 260px; height: 260px; }
+
+            #reset-btn, #restart-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+                margin: 8px 4px 0 4px !important;
+            }
+        }
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
+<header>
+    <h1>Top Polska Influencerka</h1>
+</header>
 
-<div id="main-app-container">
-    <header>
-        <h1>Top Polska Influencerka</h1>
-    </header>
+<section id="people-management">
+    <h2>Zarządzaj osobami</h2>
+    <form id="add-person-form">
+        <input id="new-name" placeholder="Imię i nazwisko" required type="text"/>
+        <input id="new-image" placeholder="URL zdjęcia" required type="text"/>
+        <input id="new-person-description" placeholder="Kategoria / Opis" required type="text"/>
+        <button type="submit">Dodaj osobę</button>
+    </form>
+    <div class="people-list" id="people-list"></div>
+</section>
 
-    <section id="people-management">
-        <h2>Zarządzaj osobami</h2>
-        <form id="add-person-form">
-            <input id="new-name" placeholder="Imię i nazwisko" required type="text"/>
-            <input id="new-image" placeholder="URL zdjęcia" required type="text"/>
-            <input id="new-person-description" placeholder="Kategoria / Opis" required type="text"/>
-            <button type="submit">Dodaj osobę</button>
-        </form>
-        <div class="people-list" id="people-list"></div>
-    </section>
+<section id="import-export">
+    <button id="export-excel-btn">Eksportuj do Excela</button>
+    <button id="export-btn">Eksportuj dane (JSON)</button>
+    <button id="import-btn">Importuj dane (JSON)</button>
+    <input accept=".json" id="file-input" style="display:none;" type="file"/>
+    <button id="import-excel-btn">Importuj z Excela</button>
+    <input accept=".xlsx" id="import-excel-input" style="display:none;" type="file"/>
+</section>
 
-    <section id="import-export">
-        <button id="export-excel-btn">Eksportuj do Excela</button>
-        <button id="export-btn">Eksportuj dane (JSON)</button>
-        <button id="import-btn">Importuj dane (JSON)</button>
-        <input accept=".json" id="file-input" style="display:none;" type="file"/>
-        <button id="import-excel-btn">Importuj z Excela</button>
-        <input accept=".xlsx" id="import-excel-input" style="display:none;" type="file"/>
-    </section>
+<section id="tournament-section">
+    <h2>Turniej</h2>
+    <div id="category-select-container"></div>
 
-    <section id="tournament-section">
-        <h2>Turniej</h2>
-        <div id="category-select-container"></div>
-
-        <div id="voting-mode-settings">
-            Tryb rozstrzygania par:
-            <select id="voting-type-select">
-                <option value="click">Klasyczny (Kliknięcie myszką)</option>
-                <option value="local">Lokalny wieloosobowy (Przekazywanie ekranu)</option>
-                <option value="jackbox">Smartfony (System Jackbox 📱)</option>
-            </select>
-        </div>
-
-        <div id="voter-names-container" style="display:none;">
-            <input type="text" id="voter1" placeholder="Imię osoby 1" value="Osoba 1" />
-            <input type="text" id="voter2" placeholder="Imię osoby 2" value="Osoba 2" />
-            <input type="text" id="voter3" placeholder="Imię osoby 3" value="Osoba 3" />
-        </div>
-
-        <div id="jackbox-panel" style="display:none;">
-            <div>Zeskanuj telefonem lub wejdź na link poniżej:</div>
-            <div id="jackbox-code">ŁADOWANIE...</div>
-            <div style="margin: 10px 0;"><img id="jackbox-qr" src="" alt="Kod QR"></div>
-            <div style="font-size:0.9rem; word-break: break-all;"><a id="jackbox-link" href="#" target="_blank"></a></div>
-            <div style="margin-top:10px; color:#ffcc00;" id="jackbox-players-count">Połączonych graczy: 0</div>
-            <div id="jackbox-players-list" style="font-size:0.9rem; color:#bbb; margin-top:5px;"></div>
-        </div>
-
-        <div style="margin-top:15px;">
-            <button id="start-btn">Startuj turniej</button>
-            <div id="limit-container" style="display: inline-block; margin-left: 1em;">
-                Limit uczestników:
-                <select id="participant-limit">
-                    <option value="">Bez limitu</option>
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="16">16</option>
-                    <option value="32">32</option>
-                    <option value="64">64</option>
-                </select>
-            </div>
-            <button id="reset-btn" style="margin-left:1em;">Resetuj turniej</button>
-            <button id="restart-btn" style="margin-left:1em;">Zacznij od nowa</button>
-        </div>
-
-        <div id="round-indicator"></div>
-        <div id="vote-progress"></div>
-        <div id="vote-result-bar"></div>
-        <div id="bye-message"></div>
-        <div id="choice-container">
-            <div class="person-choice" id="choice1">
-                <img alt="" src=""/>
-                <h3></h3>
-                <p></p>
-            </div>
-            <div class="vs" id="vs-text">VS</div>
-            <div class="person-choice" id="choice2">
-                <img alt="" src=""/>
-                <h3></h3>
-                <p></p>
-            </div>
-        </div>
-        <div id="winner-display"></div>
-    </section>
-
-    <div id="voter-handoff-screen">
-        <div id="voter-handoff-name"></div>
-        <div id="voter-handoff-subtitle">Twoja kolej na głosowanie!</div>
-        <button id="voter-handoff-btn">Jestem gotowy/a →</button>
+    <div id="voting-mode-settings">
+        <label>
+            <input type="checkbox" id="voting-mode-toggle" style="transform:scale(1.2);margin-right:6px;vertical-align:middle;">
+            Tryb głosowania (każdy głosuje osobno)
+        </label>
     </div>
+    <div id="voter-names-container" style="display:none;">
+        <input type="text" id="voter1" placeholder="Imię osoby 1" value="Osoba 1" />
+        <input type="text" id="voter2" placeholder="Imię osoby 2" value="Osoba 2" />
+        <input type="text" id="voter3" placeholder="Imię osoby 3" value="Osoba 3" />
+    </div>
+
+    <button id="start-btn" style="margin-top:12px;">Startuj turniej</button>
+    <div id="limit-container" style="display: inline-block; margin-left: 1em;">
+        Limit uczestników:
+        <select id="participant-limit">
+            <option value="">Bez limitu</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="64">64</option>
+            <option value="128">128</option>
+            <option value="256">256</option>
+        </select>
+    </div>
+    <button id="reset-btn" style="margin-left:1em;">Resetuj turniej</button>
+    <button id="restart-btn" style="margin-left:1em;">Zacznij od nowa</button>
+
+    <div id="round-indicator"></div>
+    <div id="vote-progress"></div>
+    <div id="vote-result-bar"></div>
+    <div id="bye-message"></div>
+    <div id="choice-container">
+        <div class="person-choice" id="choice1">
+            <img alt="" src=""/>
+            <h3></h3>
+            <p></p>
+        </div>
+        <div class="vs" id="vs-text">VS</div>
+        <div class="person-choice" id="choice2">
+            <img alt="" src=""/>
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
+    <div id="winner-display"></div>
+</section>
+
+<div id="voter-handoff-screen">
+    <div id="voter-handoff-name"></div>
+    <div id="voter-handoff-subtitle">Twoja kolej na głosowanie!</div>
+    <button id="voter-handoff-btn">Jestem gotowy/a →</button>
 </div>
-
-<div id="phone-controller-ui" style="display:none;">
-    <div id="phone-login-screen">
-        <h2 style="color:#ffcc00;">Top Influencerka</h2>
-        <p>Dołączasz do pokoju: <span id="phone-room-label" style="font-weight:bold; color:#fff;"></span></p>
-        <input type="text" id="phone-nickname" placeholder="Twoje imię/nick" style="width:80%; max-width:250px; text-align:center; margin-bottom:15px;"><br>
-        <button id="phone-join-btn" style="padding:12px 30px; font-size:1.1rem;">DOŁĄCZ DO GRY</button>
-    </div>
-    <div id="phone-wait-screen" style="display:none;">
-        <h3 style="color:#ffcc00;">Połączono!</h3>
-        <p id="phone-status-text">Oczekiwanie na rozpoczęcie rundy przez hosta...</p>
-    </div>
-    <div id="phone-game-screen" style="display:none;">
-        <h3 style="color:#aaa; margin-bottom:5px;">WYBIERZ SWÓJ TYP:</h3>
-        <div id="phone-voter-identity" style="font-size:0.9rem; color:#ffcc00; margin-bottom:20px;"></div>
-        <button class="phone-btn" id="phone-btn-0">Niebieski (Po lewej)</button>
-        <button class="phone-btn" id="phone-btn-1">Czerwony (Po prawej)</button>
-    </div>
-</div>
-
 
 <script>
-    // --- routing urządzeń (Jackbox kontroler) ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const roomParam = urlParams.get('room');
+    // --- Dane i stany ---
+    let people = [];
+    let categories = [];
+    let selectedCategories = new Set();
 
-    if (roomParam) {
-        // Jeśli w URL jest parametr "?room=...", natychmiast wyłączamy główną aplikację i odpalamy interfejs telefonu
-        document.getElementById('main-app-container').style.display = 'none';
-        document.getElementById('phone-controller-ui').style.display = 'flex';
-        runPhoneController(roomParam.toUpperCase());
-    } else {
-        // W innym wypadku inicjalizujemy standardowy ekran główny (komputer/telewizor)
-        initMainApp();
+    // === TRYB GŁOSOWANIA ===
+    let votingModeEnabled = false;
+    let voterNames = ['Osoba 1', 'Osoba 2', 'Osoba 3'];
+    let currentVoterIndex = 0;
+    let votes = []; // votes[voterIndex] = 0 lub 1 (indeks karty)
+
+    const votingToggle = document.getElementById('voting-mode-toggle');
+    const voterNamesContainer = document.getElementById('voter-names-container');
+    const handoffScreen = document.getElementById('voter-handoff-screen');
+    const handoffName = document.getElementById('voter-handoff-name');
+    const handoffBtn = document.getElementById('voter-handoff-btn');
+    const voteProgress = document.getElementById('vote-progress');
+    const voteResultBar = document.getElementById('vote-result-bar');
+
+    votingToggle.onchange = () => {
+        votingModeEnabled = votingToggle.checked;
+        voterNamesContainer.style.display = votingModeEnabled ? 'flex' : 'none';
+    };
+
+    handoffBtn.onclick = () => {
+        handoffScreen.classList.remove('active');
+    };
+
+    // Referencje do sekcji do ukrywania/pokazywania
+    const peopleManagementSection = document.getElementById('people-management');
+    const importExportSection = document.getElementById('import-export');
+    const tournamentSection = document.getElementById('tournament-section');
+
+    // Referencje do elementów DOM
+    const addPersonForm = document.getElementById('add-person-form');
+    const peopleListDiv = document.getElementById('people-list');
+    const categorySelectContainer = document.getElementById('category-select-container');
+    const startBtn = document.getElementById('start-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const roundIndicator = document.getElementById('round-indicator');
+    const byeMessageDiv = document.getElementById('bye-message');
+    const choiceContainer = document.getElementById('choice-container');
+    const choice1 = document.getElementById('choice1');
+    const choice2 = document.getElementById('choice2');
+    const winnerDisplay = document.getElementById('winner-display');
+    const exportBtn = document.getElementById('export-btn');
+    const importBtn = document.getElementById('import-btn');
+    const fileInput = document.getElementById('file-input');
+
+    // --- Logika kategorii ---
+
+    function updateCategorySelectCheckboxes() {
+        categorySelectContainer.innerHTML = '';
+        categories.sort().forEach(cat => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = cat;
+            checkbox.checked = selectedCategories.has(cat);
+            checkbox.className = 'category-checkbox';
+            checkbox.onchange = () => {
+                if (checkbox.checked) {
+                    selectedCategories.add(cat);
+                } else {
+                    selectedCategories.delete(cat);
+                }
+                updateStartButton();
+            };
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(' ' + cat));
+            categorySelectContainer.appendChild(label);
+        });
     }
 
-    // =========================================================================
-    // CODE KONTROLERA (TELEFON)
-    // =========================================================================
-    function runPhoneController(roomCode) {
-        document.getElementById('phone-room-label').textContent = roomCode;
-        let peer = new Peer();
-        let conn = null;
-        let myName = "";
+    // --- Logika zarządzania osobami ---
 
-        document.getElementById('phone-join-btn').onclick = () => {
-            const nickname = document.getElementById('phone-nickname').value.trim();
-            if(!nickname) { alert("Wpisz swoje imię!"); return; }
-            myName = nickname;
-
-            // Łączymy się z ekranem głównym o ID "top-influ-pokoj-[KOD]"
-            conn = peer.connect('top-influ-pokoj-' + roomCode);
-
-            conn.on('open', () => {
-                // Wysyłamy informację o dołączeniu
-                conn.send({ type: 'join', name: myName });
-                document.getElementById('phone-login-screen').style.display = 'none';
-                document.getElementById('phone-wait-screen').style.display = 'block';
-                document.getElementById('phone-voter-identity').textContent = `Głosujesz jako: ${myName}`;
-            });
-
-            conn.on('data', (data) => {
-                if (data.type === 'start_voting') {
-                    // Ekran główny wydał sygnał rozpoczęcia głosowania pary
-                    document.getElementById('phone-btn-0').textContent = data.left;
-                    document.getElementById('phone-btn-1').textContent = data.right;
-                    
-                    document.getElementById('phone-wait-screen').style.display = 'none';
-                    document.getElementById('phone-game-screen').style.display = 'flex';
-                    
-                    document.getElementById('phone-btn-0').disabled = false;
-                    document.getElementById('phone-btn-1').disabled = false;
-                }
-                if (data.type === 'vote_registered') {
-                    // Głos przyjęty
-                    document.getElementById('phone-game-screen').style.display = 'none';
-                    document.getElementById('phone-status-text').textContent = "Twój głos został zapisany! Czekanie na resztę...";
-                    document.getElementById('phone-wait-screen').style.display = 'block';
-                }
-            });
-
-            conn.on('close', () => {
-                alert("Rozłączono z ekranem głównym.");
-                window.location.reload();
-            });
-        };
-
-        function sendVote(choiceIndex) {
-            document.getElementById('phone-btn-0').disabled = true;
-            document.getElementById('phone-btn-1').disabled = true;
-            if(conn) {
-                conn.send({ type: 'vote', choice: choiceIndex });
-            }
+    function updatePeopleList() {
+        peopleListDiv.innerHTML = '';
+        if (people.length === 0) {
+            peopleListDiv.textContent = 'Brak dodanych osób.';
+            return;
         }
+        people.forEach((person, i) => {
+            const div = document.createElement('div');
+            div.className = 'person-item';
 
-        document.getElementById('phone-btn-0').onclick = () => sendVote(0);
-        document.getElementById('phone-btn-1').onclick = () => sendVote(1);
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'person-info';
+            const img = document.createElement('img');
+            img.src = person.image;
+            img.alt = person.name;
+            const textDiv = document.createElement('div');
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'name';
+            nameDiv.textContent = `${i + 1}. ${person.name}`;
+            const catDiv = document.createElement('div');
+            catDiv.className = 'cat';
+            catDiv.textContent = `Kategoria: ${person.description}`;
+            textDiv.appendChild(nameDiv);
+            textDiv.appendChild(catDiv);
+            infoDiv.appendChild(img);
+            infoDiv.appendChild(textDiv);
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'person-actions';
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edytuj';
+            editBtn.style.backgroundColor = '#2266aa';
+            editBtn.onclick = () => editPerson(i);
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'Usuń';
+            removeBtn.onclick = () => {
+                if (confirm(`Na pewno usunąć osobę "${person.name}"?`)) {
+                    people.splice(i, 1);
+                    updateAll();
+                }
+            };
+            actionsDiv.appendChild(editBtn);
+            actionsDiv.appendChild(removeBtn);
+
+            div.appendChild(infoDiv);
+            div.appendChild(actionsDiv);
+            peopleListDiv.appendChild(div);
+        });
     }
-
-
-    // =========================================================================
-    // CODE EKRANU GŁÓWNEGO (HOST)
-    // =========================================================================
-    function initMainApp() {
-        let people = [];
-        let categories = [];
-        let selectedCategories = new Set();
-
-        // Stany głosowania Jackbox
-        let votingType = 'click'; // 'click', 'local', 'jackbox'
-        let jackboxPeer = null;
-        let jackboxRoomCode = "";
-        let connectedPlayers = []; // Obiekty połączeń { conn, name, peerId, voted: false, choice: null }
-        
-        // Stan lokalnego głosowania
-        let voterNames = ['Osoba 1', 'Osoba 2', 'Osoba 3'];
-        let currentVoterIndex = 0;
-        let localVotes = []; 
-
-        // Referencje DOM
-        const votingTypeSelect = document.getElementById('voting-type-select');
-        const voterNamesContainer = document.getElementById('voter-names-container');
-        const jackboxPanel = document.getElementById('jackbox-panel');
-        const handoffScreen = document.getElementById('voter-handoff-screen');
-        const handoffName = document.getElementById('voter-handoff-name');
-        const handoffBtn = document.getElementById('voter-handoff-btn');
-        const voteProgress = document.getElementById('vote-progress');
-        const voteResultBar = document.getElementById('vote-result-bar');
-
-        const peopleManagementSection = document.getElementById('people-management');
-        const importExportSection = document.getElementById('import-export');
-        const tournamentSection = document.getElementById('tournament-section');
-        const addPersonForm = document.getElementById('add-person-form');
-        const peopleListDiv = document.getElementById('people-list');
-        const categorySelectContainer = document.getElementById('category-select-container');
-        const startBtn = document.getElementById('start-btn');
-        const resetBtn = document.getElementById('reset-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const roundIndicator = document.getElementById('round-indicator');
-        const byeMessageDiv = document.getElementById('bye-message');
-        const choiceContainer = document.getElementById('choice-container');
-        const choice1 = document.getElementById('choice1');
-        const choice2 = document.getElementById('choice2');
-        const winnerDisplay = document.getElementById('winner-display');
-        const exportBtn = document.getElementById('export-btn');
-        const importBtn = document.getElementById('import-btn');
-        const fileInput = document.getElementById('file-input');
-
-        // Zmiana trybu głosowania
-        votingTypeSelect.onchange = () => {
-            votingType = votingTypeSelect.value;
-            voterNamesContainer.style.display = (votingType === 'local') ? 'flex' : 'none';
-            
-            if (votingType === 'jackbox') {
-                jackboxPanel.style.display = 'block';
-                if (!jackboxPeer) setupJackboxServer();
-            } else {
-                jackboxPanel.style.display = 'none';
-            }
-        };
-
-        // Inicjalizacja serwera Jackbox (PeerJS jako Host)
-        function setupJackboxServer() {
-            jackboxRoomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
-            document.getElementById('jackbox-code').textContent = `KOD: ${jackboxRoomCode}`;
-            
-            // Tworzymy unikalny identyfikator pokoju w sieci PeerJS
-            jackboxPeer = new Peer('top-influ-pokoj-' + jackboxRoomCode);
-
-            jackboxPeer.on('open', () => {
-                const joinUrl = `${window.location.href.split('?')[0]}?room=${jackboxRoomCode}`;
-                document.getElementById('jackbox-link').href = joinUrl;
-                document.getElementById('jackbox-link').textContent = joinUrl;
-                document.getElementById('jackbox-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(joinUrl)}`;
-            });
-
-            jackboxPeer.on('connection', (conn) => {
-                conn.on('data', (data) => {
-                    if (data.type === 'join') {
-                        // Nowy gracz dołącza
-                        let player = { conn: conn, name: data.name, peerId: conn.peer, voted: false, choice: null };
-                        connectedPlayers.push(player);
-                        updatePlayersListUI();
-                    }
-                    if (data.type === 'vote') {
-                        // Gracz oddał głos ze swojego telefonu
-                        registerJackboxVote(conn.peer, data.choice);
-                    }
-                });
-
-                conn.on('close', () => {
-                    connectedPlayers = connectedPlayers.filter(p => p.peerId !== conn.peer);
-                    updatePlayersListUI();
-                });
-            });
-        }
-
-        function updatePlayersListUI() {
-            document.getElementById('jackbox-players-count').textContent = `Połączonych graczy: ${connectedPlayers.length}`;
-            document.getElementById('jackbox-players-list').textContent = connectedPlayers.map(p => p.name).join(', ');
-        }
-
-        // --- Logika kategorii ---
-        function updateCategorySelectCheckboxes() {
-            categorySelectContainer.innerHTML = '';
-            categories.sort().forEach(cat => {
-                const label = document.createElement('label');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.value = cat;
-                checkbox.checked = selectedCategories.has(cat);
-                checkbox.className = 'category-checkbox';
-                checkbox.onchange = () => {
-                    if (checkbox.checked) selectedCategories.add(cat);
-                    else selectedCategories.delete(cat);
-                    updateStartButton();
-                };
-                label.appendChild(checkbox);
-                label.appendChild(document.createTextNode(' ' + cat));
-                categorySelectContainer.appendChild(label);
-            });
-        }
-
-        // --- Zarządzanie osobami ---
-        function updatePeopleList() {
-            peopleListDiv.innerHTML = '';
-            if (people.length === 0) {
-                peopleListDiv.textContent = 'Brak dodanych osób.';
-                return;
-            }
-            people.forEach((person, i) => {
-                const div = document.createElement('div');
-                div.className = 'person-item';
-
-                const infoDiv = document.createElement('div');
-                infoDiv.className = 'person-info';
-                const img = document.createElement('img');
-                img.src = person.image;
-                img.alt = person.name;
-                const textDiv = document.createElement('div');
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'name';
-                nameDiv.textContent = `${i + 1}. ${person.name}`;
-                const catDiv = document.createElement('div');
-                catDiv.className = 'cat';
-                catDiv.textContent = `Kategoria: ${person.description}`;
-                textDiv.appendChild(nameDiv);
-                textDiv.appendChild(catDiv);
-                infoDiv.appendChild(img);
-                infoDiv.appendChild(textDiv);
-
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'person-actions';
-                const editBtn = document.createElement('button');
-                editBtn.textContent = 'Edytuj';
-                editBtn.style.backgroundColor = '#2266aa';
-                editBtn.onclick = () => editPerson(i);
-                const removeBtn = document.createElement('button');
-                removeBtn.textContent = 'Usuń';
-                removeBtn.onclick = () => {
-                    if (confirm(`Na pewno usunąć osobę "${person.name}"?`)) {
-                        people.splice(i, 1);
-                        updateAll();
-                    }
-                };
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(removeBtn);
-
-                div.appendChild(infoDiv);
-                div.appendChild(actionsDiv);
-                peopleListDiv.appendChild(div);
-            });
-        }
-        
-        addPersonForm.onsubmit = e => {
-            e.preventDefault();
-            const name = document.getElementById('new-name').value.trim();
-            const image = document.getElementById('new-image').value.trim();
-            const description = document.getElementById("new-person-description").value.trim();
-            if (name && image && description) {
-                people.push({ name, image, description });
-                addPersonForm.reset();
-                updateAll();
-            } else {
-                alert("Wszystkie pola są wymagane.");
-            }
-        };
-
-        function editPerson(index) {
-            const person = people[index];
-            const newName = prompt("Zmień imię i nazwisko:", person.name);
-            if (newName === null) return;
-            const newImage = prompt("Zmień URL zdjęcia:", person.image);
-            if (newImage === null) return;
-            const newDescription = prompt("Zmień kategorię / opis:", person.description);
-            if (newDescription === null) return;
-
-            people[index] = { name: newName.trim(), image: newImage.trim(), description: newDescription.trim() };
+    
+    addPersonForm.onsubmit = e => {
+        e.preventDefault();
+        const name = document.getElementById('new-name').value.trim();
+        const image = document.getElementById('new-image').value.trim();
+        const description = document.getElementById("new-person-description").value.trim();
+        if (name && image && description) {
+            people.push({ name, image, description });
+            addPersonForm.reset();
             updateAll();
+        } else {
+            alert("Wszystkie pola (imię, URL zdjęcia, kategoria) są wymagane.");
+        }
+    };
+
+    function editPerson(index) {
+        const person = people[index];
+        const newName = prompt("Zmień imię i nazwisko:", person.name);
+        if (newName === null) return;
+        const newImage = prompt("Zmień URL zdjęcia:", person.image);
+        if (newImage === null) return;
+        const newDescription = prompt("Zmień kategorię / opis:", person.description);
+        if (newDescription === null) return;
+
+        people[index] = { name: newName.trim(), image: newImage.trim(), description: newDescription.trim() };
+        updateAll();
+    }
+
+    // --- Logika turnieju ---
+    let tournamentParticipants = [];
+    let currentRound = 0;
+    let rounds = [];
+    let currentPairIndex = 0;
+    let roundsData = [];
+
+    startBtn.onclick = startTournament;
+    restartBtn.onclick = startTournament;
+    resetBtn.onclick = resetTournament;
+
+    function startTournament() {
+        const filteredPeople = selectedCategories.size > 0 
+            ? people.filter(person => selectedCategories.has(person.description))
+            : people;
+
+        const limit = getParticipantLimit();
+        let participants = filteredPeople.slice();
+
+        if (limit) {
+            participants = shuffleArray(participants).slice(0, limit);
         }
 
-        // --- Logika turnieju ---
-        let tournamentParticipants = [];
-        let currentRound = 0;
-        let rounds = [];
-        let currentPairIndex = 0;
-        let roundsData = [];
-
-        startBtn.onclick = startTournament;
-        restartBtn.onclick = startTournament;
-        resetBtn.onclick = resetTournament;
-
-        function startTournament() {
-            if (votingType === 'jackbox' && connectedPlayers.length === 0) {
-                alert("W trybie smartfonów musisz mieć podłączonego minimum jednego gracza (telefon)!");
-                return;
-            }
-
-            const filteredPeople = selectedCategories.size > 0 
-                ? people.filter(person => selectedCategories.has(person.description))
-                : people;
-
-            const limit = getParticipantLimit();
-            let participants = filteredPeople.slice();
-
-            if (limit) {
-                participants = shuffleArray(participants).slice(0, limit);
-            }
-
-            if (participants.length < 2) {
-                alert('Za mało uczestników, aby rozpocząć turniej (minimum 2).');
-                return;
-            }
-
-            tournamentParticipants = shuffleArray(participants);
-
-            rounds = [];
-            let count = tournamentParticipants.length;
-            while (count > 1) {
-                rounds.push(count);
-                count = Math.ceil(count / 2);
-            }
-
-            roundsData = [];
-            roundsData[0] = tournamentParticipants.slice();
-            currentRound = 0;
-            currentPairIndex = 0;
-
-            winnerDisplay.innerHTML = '';
-            byeMessageDiv.textContent = '';
-            voteProgress.innerHTML = '';
-            voteResultBar.innerHTML = '';
-            currentVoterIndex = 0;
-            localVotes = [];
-            choiceContainer.style.display = 'flex';
-            startBtn.disabled = true;
-            
-            peopleManagementSection.classList.add('hidden-section');
-            importExportSection.classList.add('hidden-section');
-            tournamentSection.classList.remove('hidden-section');
-
-            processByesForCurrentRound();
-            showCurrentPair();
+        if (participants.length < 2) {
+            alert('Za mało uczestników, aby rozpocząć turniej (minimum 2 z wybranych kategorii).');
+            return;
         }
 
-        function resetTournament() {
-            tournamentParticipants = [];
-            currentRound = 0;
-            rounds = [];
-            currentPairIndex = 0;
-            roundsData = [];
-            currentVoterIndex = 0;
-            localVotes = [];
-            choiceContainer.style.display = 'none';
-            winnerDisplay.innerHTML = '';
-            roundIndicator.textContent = '';
-            byeMessageDiv.textContent = '';
-            voteProgress.innerHTML = '';
-            voteResultBar.innerHTML = '';
-            handoffScreen.classList.remove('active');
-            startBtn.disabled = false;
-            
-            peopleManagementSection.classList.remove('hidden-section');
-            importExportSection.classList.remove('hidden-section');
-            updateStartButton();
+        tournamentParticipants = shuffleArray(participants);
+
+        rounds = [];
+        let count = tournamentParticipants.length;
+        while (count > 1) {
+            rounds.push(count);
+            count = Math.ceil(count / 2);
         }
+
+        roundsData = [];
+        roundsData[0] = tournamentParticipants.slice();
+        currentRound = 0;
+        currentPairIndex = 0;
+
+        // UI updates
+        winnerDisplay.innerHTML = '';
+        byeMessageDiv.textContent = '';
+        voteProgress.innerHTML = '';
+        voteResultBar.innerHTML = '';
+        currentVoterIndex = 0;
+        votes = [];
+        choiceContainer.style.display = 'flex';
+        startBtn.disabled = true;
+        peopleManagementSection.classList.add('hidden-section');
+        importExportSection.classList.add('hidden-section');
+        tournamentSection.classList.remove('hidden-section');
+
+        // Aktywacja trybu pełnoekranowego w CSS
+        document.body.classList.add('tournament-running');
+
+        processByesForCurrentRound();
+        showCurrentPair();
+    }
+
+    function resetTournament() {
+        tournamentParticipants = [];
+        currentRound = 0;
+        rounds = [];
+        currentPairIndex = 0;
+        roundsData = [];
+        currentVoterIndex = 0;
+        votes = [];
+        choiceContainer.style.display = 'none';
+        winnerDisplay.innerHTML = '';
+        roundIndicator.textContent = '';
+        byeMessageDiv.textContent = '';
+        voteProgress.innerHTML = '';
+        voteResultBar.innerHTML = '';
+        handoffScreen.classList.remove('active');
+        startBtn.disabled = false;
         
-        function processByesForCurrentRound() {
-            if (!roundsData[currentRound]) return;
-            let participantsInRound = roundsData[currentRound];
-            if (participantsInRound.length % 2 !== 0 && participantsInRound.length > 1) {
-                const byePerson = participantsInRound.pop();
-                if (!roundsData[currentRound + 1]) {
-                    roundsData[currentRound + 1] = [];
-                }
-                roundsData[currentRound + 1].push(byePerson);
-                displayByeMessage(`${byePerson.name} przechodzi do następnej rundy (wolny los).`);
-            }
-        }
-
-        function displayByeMessage(message) {
-            byeMessageDiv.textContent = message;
-            byeMessageDiv.style.opacity = 1;
-            setTimeout(() => {
-                byeMessageDiv.style.opacity = 0;
-                setTimeout(() => { byeMessageDiv.textContent = ''; }, 1000);
-            }, 3000);
-        }
+        peopleManagementSection.classList.remove('hidden-section');
+        importExportSection.classList.remove('hidden-section');
         
-        function showCurrentPair() {
-            const participants = roundsData[currentRound];
-            if (!participants || currentPairIndex >= participants.length) {
-                if (currentRound < rounds.length) {
-                    nextRound();
-                } else if (participants && participants.length === 1) {
-                    declareWinner(participants[0]);
-                }
-                return;
+        // Wyłączenie trybu pełnoekranowego
+        document.body.classList.remove('tournament-running');
+
+        updateStartButton();
+    }
+    
+    function processByesForCurrentRound() {
+        if (!roundsData[currentRound]) return;
+        let participantsInRound = roundsData[currentRound];
+        if (participantsInRound.length % 2 !== 0 && participantsInRound.length > 1) {
+            const byePerson = participantsInRound.pop();
+            if (!roundsData[currentRound + 1]) {
+                roundsData[currentRound + 1] = [];
             }
-            setChoice(choice1, participants[currentPairIndex]);
-            setChoice(choice2, participants[currentPairIndex + 1]);
-            roundIndicator.textContent = `Runda: ${currentRound + 1} z ${rounds.length} – Para ${Math.floor(currentPairIndex / 2) + 1} z ${Math.ceil(participants.length / 2)}`;
-            
-            startVotingRound();
+            roundsData[currentRound + 1].push(byePerson);
+            displayByeMessage(`${byePerson.name} przechodzi do następnej rundy (wolny los).`);
         }
+    }
 
-        function setChoice(elem, person) {
-            elem.querySelector('img').src = person.image;
-            elem.querySelector('img').alt = person.name;
-            elem.querySelector('h3').textContent = person.name;
-            elem.querySelector('p').textContent = person.description;
-        }
-
-        // Kliknięcie bezpośrednio myszką w kartę (Działa tylko w trybie 'click')
-        function selectWinner(index) {
-            if (votingType === 'click') {
-                commitWinner(index);
+    function displayByeMessage(message) {
+        byeMessageDiv.textContent = message;
+        byeMessageDiv.style.opacity = 1;
+        setTimeout(() => {
+            byeMessageDiv.style.opacity = 0;
+            setTimeout(() => { byeMessageDiv.textContent = ''; }, 1000);
+        }, 3000);
+    }
+    
+    function showCurrentPair() {
+        const participants = roundsData[currentRound];
+        if (!participants || currentPairIndex >= participants.length) {
+            if (currentRound < rounds.length) {
+                nextRound();
+            } else if (participants && participants.length === 1) {
+                declareWinner(participants[0]);
             }
+            return;
         }
+        setChoice(choice1, participants[currentPairIndex]);
+        setChoice(choice2, participants[currentPairIndex + 1]);
+        roundIndicator.textContent = `Runda: ${currentRound + 1} z ${rounds.length} – Para ${Math.floor(currentPairIndex / 2) + 1} z ${Math.ceil(participants.length / 2)}`;
+        startVotingRound();
+    }
 
-        function startVotingRound() {
-            const participants = roundsData[currentRound];
-            if (!participants[currentPairIndex]) return;
-            
-            const nameLeft = participants[currentPairIndex].name;
-            const nameRight = participants[currentPairIndex + 1].name;
+    function setChoice(elem, person) {
+        elem.querySelector('img').src = person.image;
+        elem.querySelector('img').alt = person.name;
+        elem.querySelector('h3').textContent = person.name;
+        elem.querySelector('p').textContent = person.description;
+    }
 
-            if (votingType === 'local') {
-                currentVoterIndex = 0;
-                localVotes = [];
-                voterNames = getLocalVoterNames();
-                handoffName.textContent = voterNames[0];
-                handoffScreen.classList.add('active');
-                updateLocalVoteDots();
-            } 
-            else if (votingType === 'jackbox') {
-                // Czyścimy poprzednie głosy z telefonów i wysyłamy konfigurację na telefony
-                connectedPlayers.forEach(p => { p.voted = false; p.choice = null; });
-                updateJackboxProgressUI();
-                
-                connectedPlayers.forEach(p => {
-                    p.conn.send({
-                        type: 'start_voting',
-                        left: nameLeft,
-                        right: nameRight
-                    });
-                });
-            }
+    function selectWinner(index) {
+        if (votingModeEnabled) {
+            handleVote(index);
+        } else {
+            commitWinner(index);
         }
+    }
 
-        // --- Głosowanie lokalne (Pass the Screen) ---
-        function handleLocalVote(index) {
-            localVotes[currentVoterIndex] = index;
-            currentVoterIndex++;
-            updateLocalVoteDots();
+    function handleVote(index) {
+        votes[currentVoterIndex] = index;
+        currentVoterIndex++;
+        updateVoteDots();
 
-            if (currentVoterIndex < voterNames.length) {
-                handoffName.textContent = voterNames[currentVoterIndex];
-                handoffScreen.classList.add('active');
-            } else {
-                const count0 = localVotes.filter(v => v === 0).length;
-                const count1 = localVotes.filter(v => v === 1).length;
-                evaluateAndCommitScores(count0, count1);
-            }
-        }
-
-        function updateLocalVoteDots() {
-            const names = getLocalVoterNames();
-            const dots = names.map((name, i) => {
-                const voted = i < currentVoterIndex;
-                return `<span class="vote-dot ${voted ? 'voted' : ''}" title="${name}"></span>`;
-            }).join('');
-            const remaining = names.length - currentVoterIndex;
-            const label = remaining > 0 ? `Czeka na głos: <strong>${names[currentVoterIndex]}</strong>` : 'Zliczam głosy…';
-            voteProgress.innerHTML = `${dots} ${label}`;
-        }
-
-        function getLocalVoterNames() {
-            return [
-                document.getElementById('voter1').value.trim() || 'Osoba 1',
-                document.getElementById('voter2').value.trim() || 'Osoba 2',
-                document.getElementById('voter3').value.trim() || 'Osoba 3',
-            ];
-        }
-
-        // --- Głosowanie z telefonów (Jackbox) ---
-        function registerJackboxVote(peerId, choiceIndex) {
-            let player = connectedPlayers.find(p => p.peerId === peerId);
-            if (player && !player.voted) {
-                player.voted = true;
-                player.choice = choiceIndex;
-                player.conn.send({ type: 'vote_registered' });
-                updateJackboxProgressUI();
-                checkJackboxVotingEnd();
-            }
-        }
-
-        function updateJackboxProgressUI() {
-            const dots = connectedPlayers.map(p => {
-                return `<span class="vote-dot ${p.voted ? 'voted' : ''}" title="${p.name}"></span>`;
-            }).join('');
-            
-            const unvotedPlayer = connectedPlayers.find(p => !p.voted);
-            const label = unvotedPlayer ? `Czeka na głos: <strong>${unvotedPlayer.name}</strong>` : 'Wszyscy zagłosowali!';
-            voteProgress.innerHTML = `${dots} ${label}`;
-        }
-
-        function checkJackboxVotingEnd() {
-            // Jeśli wszyscy połączeni gracze oddali głos, kończymy zliczanie
-            if (connectedPlayers.every(p => p.voted)) {
-                const count0 = connectedPlayers.filter(p => p.choice === 0).length;
-                const count1 = connectedPlayers.filter(p => p.choice === 1).length;
-                evaluateAndCommitScores(count0, count1);
-            }
-        }
-
-        // Shared Logic: Podliczenie i obsługa rzutu monetą
-        function evaluateAndCommitScores(count0, count1) {
-            let winnerIndex;
-            let isTie = (count0 === count1);
-            
-            if (count0 > count1) winnerIndex = 0;
-            else if (count1 > count0) winnerIndex = 1;
-            else winnerIndex = Math.random() < 0.5 ? 0 : 1; // RZUT MONETĄ
+        if (currentVoterIndex < voterNames.length) {
+            const nextName = voterNames[currentVoterIndex];
+            handoffName.textContent = nextName;
+            handoffScreen.classList.add('active');
+        } else {
+            const count0 = votes.filter(v => v === 0).length;
+            const count1 = votes.filter(v => v === 1).length;
+            const winnerIndex = count0 >= count1 ? 0 : 1;
 
             const participants = roundsData[currentRound];
             const name0 = participants[currentPairIndex].name;
             const name1 = participants[currentPairIndex + 1].name;
 
-            let resultHTML = `
-                <div class="vote-counts-line">
-                    <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
-                    <span style="color:#555">vs</span>
-                    <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
-                </div>
+            voteResultBar.innerHTML = `
+                <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
+                <span style="color:#555">vs</span>
+                <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
             `;
-            
-            if (isTie) {
-                const coinWinnerName = winnerIndex === 0 ? name0 : name1;
-                resultHTML += `
-                    <div style="color: #ff8c00; font-size: 1.1rem; margin-top: 8px; font-weight: bold;">
-                        🪙 Remis! Automatyczny rzut monetą wskazał na: <strong>${coinWinnerName}</strong>!
-                    </div>
-                `;
-            }
-
-            voteResultBar.innerHTML = resultHTML;
 
             const winCard = winnerIndex === 0 ? choice1 : choice2;
             const loseCard = winnerIndex === 0 ? choice2 : choice1;
             winCard.classList.add('winner-flash');
             loseCard.classList.add('loser-fade');
+
+            currentVoterIndex = 0;
+            votes = [];
 
             setTimeout(() => {
                 winCard.classList.remove('winner-flash');
@@ -1119,159 +885,225 @@
                 voteResultBar.innerHTML = '';
                 voteProgress.innerHTML = '';
                 commitWinner(winnerIndex);
-            }, isTie ? 3500 : 2200);
+            }, 2200);
         }
-
-        function commitWinner(index) {
-            const participants = roundsData[currentRound];
-            const winner = participants[currentPairIndex + index];
-            if (!roundsData[currentRound + 1]) {
-                roundsData[currentRound + 1] = [];
-            }
-            roundsData[currentRound + 1].push(winner);
-            currentPairIndex += 2;
-            showCurrentPair();
-        }
-
-        handoffBtn.onclick = () => {
-            handoffScreen.classList.remove('active');
-            updateLocalVoteDots();
-        };
-
-        choice1.onclick = () => { if(votingType === 'local') handleLocalVote(0); else selectWinner(0); };
-        choice2.onclick = () => { if(votingType === 'local') handleLocalVote(1); else selectWinner(1); };
-
-        function nextRound() {
-            currentRound++;
-            currentPairIndex = 0;
-            
-            if (!roundsData[currentRound] || roundsData[currentRound].length === 0) {
-                declareWinner(roundsData[currentRound-1][0]);
-                return;
-            }
-            if (roundsData[currentRound].length === 1) {
-                 declareWinner(roundsData[currentRound][0]);
-                 return;
-            }
-
-            roundsData[currentRound] = shuffleArray(roundsData[currentRound].slice());
-            processByesForCurrentRound();
-            showCurrentPair();
-        }
-
-        function declareWinner(person) {
-            choiceContainer.style.display = 'none';
-            roundIndicator.textContent = '🏁 Turniej zakończony! 🏁';
-            byeMessageDiv.textContent = '';
-            winnerDisplay.innerHTML = `<h2>Zwycięzca:</h2><h3>${person.name}</h3><img src="${person.image}" alt="${person.name}" /><p>Kategoria: ${person.description}</p>`;
-            startBtn.disabled = false;
-            
-            peopleManagementSection.classList.remove('hidden-section');
-            importExportSection.classList.remove('hidden-section');
-        }
-
-        // --- Helpery oraz I/O (Excel/JSON) ---
-        function updateStartButton() {
-            const limit = getParticipantLimit();
-            const filteredCount = selectedCategories.size > 0 
-                ? people.filter(p => selectedCategories.has(p.description)).length
-                : people.length;
-            startBtn.disabled = limit ? filteredCount < limit : filteredCount < 2;
-        }
-
-        function getParticipantLimit() {
-            const val = document.getElementById("participant-limit").value;
-            return val ? parseInt(val, 10) : null;
-        }
-        
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        function updateAll() {
-            const allDescriptions = new Set(people.map(p => p.description));
-            categories = Array.from(allDescriptions);
-            selectedCategories = new Set([...selectedCategories].filter(cat => categories.includes(cat)));
-            updateCategorySelectCheckboxes();
-            updatePeopleList();
-            updateStartButton();
-        }
-        
-        document.getElementById("participant-limit").addEventListener("change", updateStartButton);
-        
-        // Excel Export
-        document.getElementById("export-excel-btn").onclick = function () {
-            if (people.length === 0) { alert("Brak danych do eksportu."); return; }
-            const data = people.map(p => ({ "Imię i nazwisko": p.name, "Kategoria": p.description, "Zdjęcie": p.image }));
-            const worksheet = XLSX.utils.json_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Osoby");
-            XLSX.writeFile(workbook, "lista_osob.xlsx");
-        };
-
-        // JSON Export
-        exportBtn.onclick = () => {
-            const data = { people: people };
-            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = 'turniej-dane.json'; a.click();
-            URL.revokeObjectURL(url);
-        };
-
-        // JSON Import
-        importBtn.onclick = () => fileInput.click();
-        fileInput.onchange = e => {
-            const file = e.target.files[0]; if (!file) return;
-            const reader = new FileReader();
-            reader.onload = evt => {
-                try {
-                    const imported = JSON.parse(evt.target.result);
-                    if (Array.isArray(imported.people)) {
-                        const existingNames = new Set(people.map(p => p.name.toLowerCase()));
-                        const newPeople = imported.people.filter(p => !existingNames.has(p.name.toLowerCase()));
-                        people = people.concat(newPeople);
-                    }
-                    updateAll(); alert('Dane zaimportowane.');
-                } catch (error) { alert('Niepoprawny plik JSON: ' + error.message); }
-            };
-            reader.readAsText(file);
-        };
-
-        // Excel Import
-        document.getElementById("import-excel-btn").onclick = () => document.getElementById("import-excel-input").click();
-        document.getElementById("import-excel-input").addEventListener("change", (e) => {
-            const file = e.target.files[0]; if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (evt) => {
-                try {
-                    const data = new Uint8Array(evt.target.result);
-                    const workbook = XLSX.read(data, {type: 'array'});
-                    const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-                    let importedCount = 0;
-                    const existingNames = new Set(people.map(p => p.name.toLowerCase()));
-
-                    json.forEach(row => {
-                        const name = row["Imię i nazwisko"];
-                        const description = row["Kategoria"];
-                        const image = row["Zdjęcie"] || "https://via.placeholder.com/300";
-                        if (name && description && !existingNames.has(String(name).trim().toLowerCase())) {
-                            people.push({ name: String(name).trim(), description: String(description).trim(), image: String(image).trim() });
-                            importedCount++;
-                        }
-                    });
-                    updateAll(); alert(`Zaimportowano ${importedCount} osób.`);
-                } catch (error) { alert(`Błąd importu Excel: ${error.message}`); }
-            };
-            reader.readAsArrayBuffer(file);
-        });
-        
-        updateAll();
     }
+
+    function updateVoteDots() {
+        if (!votingModeEnabled) { voteProgress.innerHTML = ''; return; }
+        const names = getVoterNames();
+        const dots = names.map((name, i) => {
+            const voted = i < currentVoterIndex;
+            return `<span class="vote-dot ${voted ? 'voted' : ''}" title="${name}"></span>`;
+        }).join('');
+        const remaining = names.length - currentVoterIndex;
+        const label = remaining > 0 ? `Czeka na głos: <strong>${names[currentVoterIndex]}</strong>` : 'Zliczam głosy…';
+        voteProgress.innerHTML = `${dots} ${label}`;
+    }
+
+    function getVoterNames() {
+        return [
+            document.getElementById('voter1').value.trim() || 'Osoba 1',
+            document.getElementById('voter2').value.trim() || 'Osoba 2',
+            document.getElementById('voter3').value.trim() || 'Osoba 3',
+        ];
+    }
+
+    function commitWinner(index) {
+        const participants = roundsData[currentRound];
+        const winner = participants[currentPairIndex + index];
+        if (!roundsData[currentRound + 1]) {
+            roundsData[currentRound + 1] = [];
+        }
+        roundsData[currentRound + 1].push(winner);
+        currentPairIndex += 2;
+        showCurrentPair();
+    }
+
+    document.getElementById('voter-handoff-btn').onclick = () => {
+        handoffScreen.classList.remove('active');
+        updateVoteDots();
+    };
+
+    function startVotingRound() {
+        currentVoterIndex = 0;
+        votes = [];
+        if (votingModeEnabled) {
+            voterNames = getVoterNames();
+            handoffName.textContent = voterNames[0];
+            handoffScreen.classList.add('active');
+            updateVoteDots();
+        }
+    }
+
+    function nextRound() {
+        currentRound++;
+        currentPairIndex = 0;
+        
+        if (!roundsData[currentRound] || roundsData[currentRound].length === 0) {
+            declareWinner(roundsData[currentRound-1][0]);
+            return;
+        }
+        
+        if (roundsData[currentRound].length === 1) {
+             declareWinner(roundsData[currentRound][0]);
+             return;
+        }
+
+        roundsData[currentRound] = shuffleArray(roundsData[currentRound].slice());
+        processByesForCurrentRound();
+        showCurrentPair();
+    }
+
+    function declareWinner(person) {
+        choiceContainer.style.display = 'none';
+        roundIndicator.textContent = '🏁 Turniej zakończony! 🏁';
+        byeMessageDiv.textContent = '';
+        winnerDisplay.innerHTML = `<h2>Zwycięzca:</h2><h3>${person.name}</h3><img src="${person.image}" alt="${person.name}" /><p>Kategoria: ${person.description}</p>`;
+        startBtn.disabled = false;
+        
+        peopleManagementSection.classList.remove('hidden-section');
+        importExportSection.classList.remove('hidden-section');
+
+        // Wyłączenie trybu pełnoekranowego po finale
+        document.body.classList.remove('tournament-running');
+    }
+
+    choice1.onclick = () => selectWinner(0);
+    choice2.onclick = () => selectWinner(1);
+
+    // --- Funkcje pomocnicze i import/eksport ---
+
+    function updateStartButton() {
+        const limit = getParticipantLimit();
+        const filteredCount = selectedCategories.size > 0 
+            ? people.filter(p => selectedCategories.has(p.description)).length
+            : people.length;
+            
+        startBtn.disabled = limit ? filteredCount < limit : filteredCount < 2;
+    }
+
+    function getParticipantLimit() {
+        const val = document.getElementById("participant-limit").value;
+        return val ? parseInt(val, 10) : null;
+    }
+    
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function updateAll() {
+        const allDescriptions = new Set(people.map(p => p.description));
+        categories = Array.from(allDescriptions);
+        selectedCategories = new Set([...selectedCategories].filter(cat => categories.includes(cat)));
+        updateCategorySelectCheckboxes();
+        updatePeopleList();
+        updateStartButton();
+    }
+    
+    document.getElementById("participant-limit").addEventListener("change", updateStartButton);
+    
+    // Eksport do Excel
+    document.getElementById("export-excel-btn").onclick = function () {
+        if (people.length === 0) {
+            alert("Brak danych do eksportu.");
+            return;
+        }
+        const data = people.map(p => ({
+            "Imię i nazwisko": p.name,
+            "Kategoria": p.description,
+            "Zdjęcie": p.image
+        }));
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Osoby");
+        XLSX.writeFile(workbook, "lista_osob.xlsx");
+    };
+
+    // Eksport do JSON
+    exportBtn.onclick = () => {
+        const data = { people: people };
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'turniej-dane.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    // Import z JSON
+    importBtn.onclick = () => fileInput.click();
+    fileInput.onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+            try {
+                const imported = JSON.parse(evt.target.result);
+                if (Array.isArray(imported.people)) {
+                    const existingNames = new Set(people.map(p => p.name.toLowerCase()));
+                    const newPeople = imported.people.filter(p => !existingNames.has(p.name.toLowerCase()));
+                    people = people.concat(newPeople);
+                }
+                updateAll();
+                alert('Dane zaimportowane pomyślnie.');
+            } catch (error) {
+                alert('Niepoprawny plik JSON: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    // Import z Excel
+    document.getElementById("import-excel-btn").onclick = () => {
+        document.getElementById("import-excel-input").click();
+    };
+
+    document.getElementById("import-excel-input").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            try {
+                const data = new Uint8Array(evt.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const json = XLSX.utils.sheet_to_json(sheet);
+
+                let importedCount = 0;
+                const existingNames = new Set(people.map(p => p.name.toLowerCase()));
+
+                json.forEach(row => {
+                    const name = row["Imię i nazwisko"];
+                    const description = row["Kategoria"];
+                    const image = row["Zdjęcie"] || "https://via.placeholder.com/300";
+
+                    if (name && description && !existingNames.has(String(name).trim().toLowerCase())) {
+                        people.push({
+                            name: String(name).trim(),
+                            description: String(description).trim(),
+                            image: String(image).trim()
+                        });
+                        importedCount++;
+                    }
+                });
+
+                updateAll();
+                alert(`Zaimportowano ${importedCount} nowych osób z Excela.`);
+            } catch (error) {
+                alert(`Błąd podczas importu z Excela: ${error.message}. Upewnij się, że plik ma kolumny "Imię i nazwisko" i "Kategoria".`);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    });
+    
+    updateAll();
 </script>
 </body>
 </html>
