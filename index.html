@@ -415,26 +415,38 @@
 
         /* === INTERFEJS KONTROLERA (TELEFONU) === */
         #phone-controller-ui {
-            padding: 20px;
+            padding: 10px; /* Mniejszy margines boczny, by przyciski były szersze */
             box-sizing: border-box;
-            min-height: 100vh;
+            height: 100vh; /* Wymuszona wysokość całego ekranu */
+            width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: #121212;
+            overflow: hidden; /* Zapobiega przypadkowemu przewijaniu ekranu palcem */
         }
+        
+        #phone-game-screen {
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            /* Gdy JS włączy ten ekran (display: flex), zawartość wypełni go w 100% */
+        }
+
         .phone-btn {
             width: 100%;
-            max-width: 300px;
-            padding: 24px;
-            margin: 12px 0;
-            font-size: 1.4rem;
+            max-width: none; /* Usunięto limit 300px - przycisk zajmie całą szerokość */
+            flex-grow: 1; /* To sprawia, że przycisk rośnie w pionie na cały ekran */
+            margin: 10px 0;
+            font-size: 2rem; /* Znacznie powiększony tekst dla wygody */
             font-weight: bold;
             border-radius: 12px;
             border: none;
             cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4); /* Lekki cień dla lepszego wyglądu */
         }
+        
         #phone-btn-0 { background: #3388ff; color: #fff; }
         #phone-btn-1 { background: #ff4444; color: #fff; }
 
