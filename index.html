@@ -413,65 +413,86 @@
             color: #ffcc00;
         }
 
-        /* === ANIMACJA MONETY W PRZYPADKU REMISU === */
+        /* === ZAAWANSOWANA MONETA 3D (DWUSTRONNA) === */
         .coin-container {
-            margin: 15px auto;
-            width: 90px;
-            height: 90px;
+            margin: 20px auto;
+            width: 130px;
+            height: 130px;
             perspective: 1000px;
         }
         .coin {
             width: 100%;
             height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .coin.spinning {
+            animation: spinCoin 0.4s linear infinite;
+        }
+        @keyframes spinCoin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        .coin-side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background: #ffcc00;
-            border: 5px solid #d4ac0d;
+            backface-visibility: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            color: #121212;
+            font-size: 0.95rem;
             font-weight: bold;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
-            animation: spin 0.6s linear infinite;
+            text-align: center;
+            box-sizing: border-box;
+            border: 5px solid #d4ac0d;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 0 15px rgba(255, 204, 0, 0.4);
+            padding: 10px;
+            overflow: hidden;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
-        @keyframes spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        .coin-front {
+            background: linear-gradient(135deg, #1e5799, #3388ff);
+            color: #ffffff;
+        }
+        .coin-back {
+            background: linear-gradient(135deg, #a90329, #ff4444);
+            color: #ffffff;
+            transform: rotateY(180deg);
         }
 
         /* === INTERFEJS KONTROLERA (TELEFONU) === */
         #phone-controller-ui {
-            padding: 10px; /* Mniejszy margines boczny, by przyciski były szersze */
+            padding: 10px;
             box-sizing: border-box;
-            height: 100vh; /* Wymuszona wysokość całego ekranu */
+            height: 100vh;
             width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: #121212;
-            overflow: hidden; /* Zapobiega przypadkowemu przewijaniu ekranu palcem */
+            overflow: hidden;
         }
         
         #phone-game-screen {
             width: 100%;
             height: 100%;
             flex-direction: column;
-            /* Gdy JS włączy ten ekran (display: flex), zawartość wypełni go w 100% */
         }
 
         .phone-btn {
             width: 100%;
-            max-width: none; /* Usunięto limit 300px - przycisk zajmie całą szerokość */
-            flex-grow: 1; /* To sprawia, że przycisk rośnie w pionie na cały ekran */
+            max-width: none;
+            flex-grow: 1;
             margin: 10px 0;
-            font-size: 2rem; /* Znacznie powiększony tekst dla wygody */
+            font-size: 2rem;
             font-weight: bold;
             border-radius: 12px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4); /* Lekki cień dla lepszego wyglądu */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
         
         #phone-btn-0 { background: #3388ff; color: #fff; }
@@ -606,12 +627,10 @@
     const roomParam = urlParams.get('room');
 
     if (roomParam) {
-        // Jeśli w URL jest parametr "?room=...", natychmiast wyłączamy główną aplikację i odpalamy interfejs telefonu
         document.getElementById('main-app-container').style.display = 'none';
         document.getElementById('phone-controller-ui').style.display = 'flex';
         runPhoneController(roomParam.toUpperCase());
     } else {
-        // W innym wypadku inicjalizujemy standardowy ekran główny (komputer/telewizor)
         initMainApp();
     }
 
@@ -629,11 +648,9 @@
             if(!nickname) { alert("Wpisz swoje imię!"); return; }
             myName = nickname;
 
-            // Łączymy się z ekranem głównym o ID "top-influ-pokoj-[KOD]"
             conn = peer.connect('top-influ-pokoj-' + roomCode);
 
             conn.on('open', () => {
-                // Wysyłamy informację o dołączeniu
                 conn.send({ type: 'join', name: myName });
                 document.getElementById('phone-login-screen').style.display = 'none';
                 document.getElementById('phone-wait-screen').style.display = 'block';
@@ -642,7 +659,6 @@
 
             conn.on('data', (data) => {
                 if (data.type === 'start_voting') {
-                    // Ekran główny wydał sygnał rozpoczęcia głosowania pary
                     document.getElementById('phone-btn-0').textContent = data.left;
                     document.getElementById('phone-btn-1').textContent = data.right;
                     
@@ -653,7 +669,6 @@
                     document.getElementById('phone-btn-1').disabled = false;
                 }
                 if (data.type === 'vote_registered') {
-                    // Głos przyjęty
                     document.getElementById('phone-game-screen').style.display = 'none';
                     document.getElementById('phone-status-text').textContent = "Twój głos został zapisany! Czekanie na resztę...";
                     document.getElementById('phone-wait-screen').style.display = 'block';
@@ -687,18 +702,15 @@
         let categories = [];
         let selectedCategories = new Set();
 
-        // Stany głosowania Jackbox
-        let votingType = 'click'; // 'click', 'local', 'jackbox'
+        let votingType = 'click';
         let jackboxPeer = null;
         let jackboxRoomCode = "";
-        let connectedPlayers = []; // Obiekty połączeń { conn, name, peerId, voted: false, choice: null }
+        let connectedPlayers = [];
         
-        // Stan lokalnego głosowania
         let voterNames = ['Osoba 1', 'Osoba 2', 'Osoba 3'];
         let currentVoterIndex = 0;
         let localVotes = []; 
 
-        // Referencje DOM
         const votingTypeSelect = document.getElementById('voting-type-select');
         const voterNamesContainer = document.getElementById('voter-names-container');
         const jackboxPanel = document.getElementById('jackbox-panel');
@@ -727,7 +739,6 @@
         const importBtn = document.getElementById('import-btn');
         const fileInput = document.getElementById('file-input');
 
-        // Zmiana trybu głosowania
         votingTypeSelect.onchange = () => {
             votingType = votingTypeSelect.value;
             voterNamesContainer.style.display = (votingType === 'local') ? 'flex' : 'none';
@@ -740,12 +751,10 @@
             }
         };
 
-        // Inicjalizacja serwera Jackbox (PeerJS jako Host)
         function setupJackboxServer() {
             jackboxRoomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
             document.getElementById('jackbox-code').textContent = `KOD: ${jackboxRoomCode}`;
             
-            // Tworzymy unikalny identyfikator pokoju w sieci PeerJS
             jackboxPeer = new Peer('top-influ-pokoj-' + jackboxRoomCode);
 
             jackboxPeer.on('open', () => {
@@ -758,13 +767,11 @@
             jackboxPeer.on('connection', (conn) => {
                 conn.on('data', (data) => {
                     if (data.type === 'join') {
-                        // Nowy gracz dołącza
                         let player = { conn: conn, name: data.name, peerId: conn.peer, voted: false, choice: null };
                         connectedPlayers.push(player);
                         updatePlayersListUI();
                     }
                     if (data.type === 'vote') {
-                        // Gracz oddał głos ze swojego telefonu
                         registerJackboxVote(conn.peer, data.choice);
                     }
                 });
@@ -781,7 +788,6 @@
             document.getElementById('jackbox-players-list').textContent = connectedPlayers.map(p => p.name).join(', ');
         }
 
-        // --- Logika kategorii ---
         function updateCategorySelectCheckboxes() {
             categorySelectContainer.innerHTML = '';
             categories.sort().forEach(cat => {
@@ -802,7 +808,6 @@
             });
         }
 
-        // --- Zarządzanie osobami ---
         function updatePeopleList() {
             peopleListDiv.innerHTML = '';
             if (people.length === 0) {
@@ -880,7 +885,6 @@
             updateAll();
         }
 
-        // --- Logika turnieju ---
         let tournamentParticipants = [];
         let currentRound = 0;
         let rounds = [];
@@ -1012,7 +1016,6 @@
             elem.querySelector('p').textContent = person.description;
         }
 
-        // Kliknięcie bezpośrednio myszką w kartę (Działa tylko w trybie 'click')
         function selectWinner(index) {
             if (votingType === 'click') {
                 commitWinner(index);
@@ -1035,7 +1038,6 @@
                 updateLocalVoteDots();
             } 
             else if (votingType === 'jackbox') {
-                // Czyścimy poprzednie głosy z telefonów i wysyłamy konfigurację na telefony
                 connectedPlayers.forEach(p => { p.voted = false; p.choice = null; });
                 updateJackboxProgressUI();
                 
@@ -1049,7 +1051,6 @@
             }
         }
 
-        // --- Głosowanie lokalne (Pass the Screen) ---
         function handleLocalVote(index) {
             localVotes[currentVoterIndex] = index;
             currentVoterIndex++;
@@ -1084,7 +1085,6 @@
             ];
         }
 
-        // --- Głosowanie z telefonów (Jackbox) ---
         function registerJackboxVote(peerId, choiceIndex) {
             let player = connectedPlayers.find(p => p.peerId === peerId);
             if (player && !player.voted) {
@@ -1107,7 +1107,6 @@
         }
 
         function checkJackboxVotingEnd() {
-            // Jeśli wszyscy połączeni gracze oddali głos, kończymy zliczanie
             if (connectedPlayers.every(p => p.voted)) {
                 const count0 = connectedPlayers.filter(p => p.choice === 0).length;
                 const count1 = connectedPlayers.filter(p => p.choice === 1).length;
@@ -1115,25 +1114,50 @@
             }
         }
 
-        // Shared Logic: Podliczenie i obsługa rzutu monetą z animacją
+        // Podliczenie oraz nowa, zaawansowana animacja monety 3D
         function evaluateAndCommitScores(count0, count1) {
             let winnerIndex;
             let isTie = (count0 === count1);
             
             if (count0 > count1) winnerIndex = 0;
             else if (count1 > count0) winnerIndex = 1;
-            else winnerIndex = Math.random() < 0.5 ? 0 : 1; // RZUT MONETĄ
+            else winnerIndex = Math.random() < 0.5 ? 0 : 1;
 
             const participants = roundsData[currentRound];
             const name0 = participants[currentPairIndex].name;
             const name1 = participants[currentPairIndex + 1].name;
 
-            // Wyświetlenie animacji monety lub zwykłego paska wyników
             if (isTie) {
+                // Wyciągamy tylko pierwsze imię lub skracamy tekst, by idealnie dopasować go do monety
+                const sideAName = name0.split(' ')[0];
+                const sideBName = name1.split(' ')[0];
+
                 voteResultBar.innerHTML = `
-                    <div class="coin-container"><div class="coin">?</div></div>
-                    <div style="color: #ff8c00; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">REMIS! Rzut monetą...</div>
+                    <div class="coin-container">
+                        <div class="coin spinning" id="main-coin">
+                            <div class="coin-side coin-front"><div>${sideAName}</div></div>
+                            <div class="coin-side coin-back"><div>${sideBName}</div></div>
+                        </div>
+                    </div>
+                    <div id="coin-status-text" style="color: #ff8c00; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">REMIS! Losowanie...</div>
                 `;
+
+                // Po 1.2 sekundy szalonego kręcenia, wyłączamy pętlę i uruchamiamy płynne hamowanie 3D do wybranej strony
+                setTimeout(() => {
+                    const coinEl = document.getElementById('main-coin');
+                    const statusText = document.getElementById('coin-status-text');
+                    if (coinEl) {
+                        coinEl.classList.remove('spinning');
+                        coinEl.style.transition = "transform 2s cubic-bezier(0.15, 0.85, 0.3, 1)";
+                        
+                        // Zwycięzca po lewej (index 0) = ląduje na przodzie (wielokrotność 360 stopni)
+                        // Zwycięzca po prawej (index 1) = ląduje na tyle (wielokrotność 360 stopni + 180 stopni obrotu)
+                        const finalRotation = winnerIndex === 0 ? 1440 : 1620;
+                        coinEl.style.transform = `rotateY(${finalRotation}deg)`;
+                    }
+                    if (statusText) statusText.textContent = "Moneta opada...";
+                }, 1200);
+
             } else {
                 voteResultBar.innerHTML = `
                     <div class="vote-counts-line">
@@ -1147,18 +1171,17 @@
             const winCard = winnerIndex === 0 ? choice1 : choice2;
             const loseCard = winnerIndex === 0 ? choice2 : choice1;
             
-            // Dłuższy czas oczekiwania w przypadku remisu, aby animacja monety była widoczna
-            const delay = isTie ? 3000 : 2000;
+            // Wydłużony czas, dostosowany specjalnie do pełnej animacji rzutu 3D i wyhamowania monety
+            const delay = isTie ? 3800 : 2000;
 
             setTimeout(() => {
                 winCard.classList.add('winner-flash');
                 loseCard.classList.add('loser-fade');
                 
-                // Wyświetlenie wyniku rzutu monetą po zakończeniu kręcenia
                 if (isTie) {
                     voteResultBar.innerHTML = `
                         <div style="color: #ffcc00; font-size: 1.3rem; font-weight: bold; margin-top: 10px;">
-                            🪙 Wynik rzutu monetą: Wygrywa <strong>${winnerIndex === 0 ? name0 : name1}</strong>!
+                            🪙 Wynik rzutu: Wygrywa <strong>${winnerIndex === 0 ? name0 : name1}</strong>!
                         </div>
                     `;
                 }
@@ -1221,7 +1244,6 @@
             importExportSection.classList.remove('hidden-section');
         }
 
-        // --- Helpery oraz I/O (Excel/JSON) ---
         function updateStartButton() {
             const limit = getParticipantLimit();
             const filteredCount = selectedCategories.size > 0 
@@ -1254,7 +1276,6 @@
         
         document.getElementById("participant-limit").addEventListener("change", updateStartButton);
         
-        // Excel Export
         document.getElementById("export-excel-btn").onclick = function () {
             if (people.length === 0) { alert("Brak danych do eksportu."); return; }
             const data = people.map(p => ({ "Imię i nazwisko": p.name, "Kategoria": p.description, "Zdjęcie": p.image }));
@@ -1264,7 +1285,6 @@
             XLSX.writeFile(workbook, "lista_osob.xlsx");
         };
 
-        // JSON Export
         exportBtn.onclick = () => {
             const data = { people: people };
             const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
@@ -1274,7 +1294,6 @@
             URL.revokeObjectURL(url);
         };
 
-        // JSON Import
         importBtn.onclick = () => fileInput.click();
         fileInput.onchange = e => {
             const file = e.target.files[0]; if (!file) return;
@@ -1293,7 +1312,6 @@
             reader.readAsText(file);
         };
 
-        // Excel Import
         document.getElementById("import-excel-btn").onclick = () => document.getElementById("import-excel-input").click();
         document.getElementById("import-excel-input").addEventListener("change", (e) => {
             const file = e.target.files[0]; if (!file) return;
