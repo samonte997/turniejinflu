@@ -413,6 +413,33 @@
             color: #ffcc00;
         }
 
+        /* === ANIMACJA MONETY W PRZYPADKU REMISU === */
+        .coin-container {
+            margin: 15px auto;
+            width: 90px;
+            height: 90px;
+            perspective: 1000px;
+        }
+        .coin {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ffcc00;
+            border: 5px solid #d4ac0d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #121212;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
         /* === INTERFEJS KONTROLERA (TELEFONU) === */
         #phone-controller-ui {
             padding: 10px; /* Mniejszy margines boczny, by przyciski były szersze */
@@ -1088,7 +1115,7 @@
             }
         }
 
-        // Shared Logic: Podliczenie i obsługa rzutu monetą
+        // Shared Logic: Podliczenie i obsługa rzutu monetą z animacją
         function evaluateAndCommitScores(count0, count1) {
             let winnerIndex;
             let isTie = (count0 === count1);
@@ -1101,37 +1128,49 @@
             const name0 = participants[currentPairIndex].name;
             const name1 = participants[currentPairIndex + 1].name;
 
-            let resultHTML = `
-                <div class="vote-counts-line">
-                    <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
-                    <span style="color:#555">vs</span>
-                    <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
-                </div>
-            `;
-            
+            // Wyświetlenie animacji monety lub zwykłego paska wyników
             if (isTie) {
-                const coinWinnerName = winnerIndex === 0 ? name0 : name1;
-                resultHTML += `
-                    <div style="color: #ff8c00; font-size: 1.1rem; margin-top: 8px; font-weight: bold;">
-                        🪙 Remis! Automatyczny rzut monetą wskazał na: <strong>${coinWinnerName}</strong>!
+                voteResultBar.innerHTML = `
+                    <div class="coin-container"><div class="coin">?</div></div>
+                    <div style="color: #ff8c00; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">REMIS! Rzut monetą...</div>
+                `;
+            } else {
+                voteResultBar.innerHTML = `
+                    <div class="vote-counts-line">
+                        <span><span class="vote-count">${count0}</span> głos${count0 === 1 ? '' : (count0 < 5 ? 'y' : 'ów')} — ${name0}</span>
+                        <span style="color:#555">vs</span>
+                        <span>${name1} — <span class="vote-count">${count1}</span> głos${count1 === 1 ? '' : (count1 < 5 ? 'y' : 'ów')}</span>
                     </div>
                 `;
             }
 
-            voteResultBar.innerHTML = resultHTML;
-
             const winCard = winnerIndex === 0 ? choice1 : choice2;
             const loseCard = winnerIndex === 0 ? choice2 : choice1;
-            winCard.classList.add('winner-flash');
-            loseCard.classList.add('loser-fade');
+            
+            // Dłuższy czas oczekiwania w przypadku remisu, aby animacja monety była widoczna
+            const delay = isTie ? 3000 : 2000;
 
             setTimeout(() => {
-                winCard.classList.remove('winner-flash');
-                loseCard.classList.remove('loser-fade');
-                voteResultBar.innerHTML = '';
-                voteProgress.innerHTML = '';
-                commitWinner(winnerIndex);
-            }, isTie ? 3500 : 2200);
+                winCard.classList.add('winner-flash');
+                loseCard.classList.add('loser-fade');
+                
+                // Wyświetlenie wyniku rzutu monetą po zakończeniu kręcenia
+                if (isTie) {
+                    voteResultBar.innerHTML = `
+                        <div style="color: #ffcc00; font-size: 1.3rem; font-weight: bold; margin-top: 10px;">
+                            🪙 Wynik rzutu monetą: Wygrywa <strong>${winnerIndex === 0 ? name0 : name1}</strong>!
+                        </div>
+                    `;
+                }
+
+                setTimeout(() => {
+                    winCard.classList.remove('winner-flash');
+                    loseCard.classList.remove('loser-fade');
+                    voteResultBar.innerHTML = '';
+                    voteProgress.innerHTML = '';
+                    commitWinner(winnerIndex);
+                }, 1500);
+            }, delay);
         }
 
         function commitWinner(index) {
