@@ -427,7 +427,7 @@
             transform-style: preserve-3d;
         }
         .coin.spinning {
-            animation: spinCoin 0.4s linear infinite;
+            animation: spinCoin 0.3s linear infinite;
         }
         @keyframes spinCoin {
             0% { transform: rotateY(0deg); }
@@ -1114,7 +1114,6 @@
             }
         }
 
-        // Podliczenie oraz nowa, zaawansowana animacja monety 3D
         function evaluateAndCommitScores(count0, count1) {
             let winnerIndex;
             let isTie = (count0 === count1);
@@ -1128,7 +1127,6 @@
             const name1 = participants[currentPairIndex + 1].name;
 
             if (isTie) {
-                // Wyciągamy tylko pierwsze imię lub skracamy tekst, by idealnie dopasować go do monety
                 const sideAName = name0.split(' ')[0];
                 const sideBName = name1.split(' ')[0];
 
@@ -1139,24 +1137,25 @@
                             <div class="coin-side coin-back"><div>${sideBName}</div></div>
                         </div>
                     </div>
-                    <div id="coin-status-text" style="color: #ff8c00; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">REMIS! Losowanie...</div>
+                    <div id="coin-status-text" style="color: #ff8c00; font-size: 1.2rem; font-weight: bold; margin-top: 5px;">REMIS! Kręcenie monety (5s)...</div>
                 `;
 
-                // Po 1.2 sekundy szalonego kręcenia, wyłączamy pętlę i uruchamiamy płynne hamowanie 3D do wybranej strony
+                // Moneta kręci się jak szalona przez dokładnie 5 sekund (5000ms)
                 setTimeout(() => {
                     const coinEl = document.getElementById('main-coin');
                     const statusText = document.getElementById('coin-status-text');
                     if (coinEl) {
                         coinEl.classList.remove('spinning');
-                        coinEl.style.transition = "transform 2s cubic-bezier(0.15, 0.85, 0.3, 1)";
+                        // Dodajemy potężną liczbę stopni obrotu (3600/3780 = 10 pełnych obrotów), 
+                        // dzięki czemu podczas fazy opadania moneta wciąż rotuje niewiarygodnie szybko 
+                        // i zwalnia dopiero w ułamku sekundy przed całkowitym stopem.
+                        coinEl.style.transition = "transform 1.5s cubic-bezier(0.2, 0.85, 0.4, 1)";
                         
-                        // Zwycięzca po lewej (index 0) = ląduje na przodzie (wielokrotność 360 stopni)
-                        // Zwycięzca po prawej (index 1) = ląduje na tyle (wielokrotność 360 stopni + 180 stopni obrotu)
-                        const finalRotation = winnerIndex === 0 ? 1440 : 1620;
+                        const finalRotation = winnerIndex === 0 ? 3600 : 3780;
                         coinEl.style.transform = `rotateY(${finalRotation}deg)`;
                     }
                     if (statusText) statusText.textContent = "Moneta opada...";
-                }, 1200);
+                }, 5000);
 
             } else {
                 voteResultBar.innerHTML = `
@@ -1171,8 +1170,9 @@
             const winCard = winnerIndex === 0 ? choice1 : choice2;
             const loseCard = winnerIndex === 0 ? choice2 : choice1;
             
-            // Wydłużony czas, dostosowany specjalnie do pełnej animacji rzutu 3D i wyhamowania monety
-            const delay = isTie ? 3800 : 2000;
+            // Dokładne dopasowanie czasu opóźnienia do zakończenia animacji monety:
+            // 5000ms (kręcenie) + 1500ms (fizyczne lądowanie) + 300ms (chwila zawieszenia oka na wyniku) = 6800ms
+            const delay = isTie ? 6800 : 2000;
 
             setTimeout(() => {
                 winCard.classList.add('winner-flash');
